@@ -1,0 +1,166 @@
+import {
+  Container,
+  LeftPanel,
+  RightPanel,
+  PanelWrapper,
+  Form,
+  Title,
+  Label,
+  Input,
+  Button,
+  GoogleButton,
+  GoogleIcon,
+  GirlImage
+} from './style';
+
+import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+
+import girlImage from '../../assets/girl.png';
+import googleIcon from '../../assets/google.svg';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+const Login = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [serverError, setServerError] = useState('');
+  const navigate = useNavigate();
+
+  const handleRedirectByRole = (role: string) => {
+    if (role === 'teacher') {
+      navigate('/teacher');
+    } else {
+      navigate('/home');
+    }
+  };
+
+  const onSubmit = async (data: LoginFormData) => {
+    const token = recaptchaRef.current?.getValue();
+    if (!token) {
+      alert('Por favor completá el reCAPTCHA');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Error al iniciar sesión');
+      }
+
+      const { token: authToken, role } = await res.json();
+      if (!authToken || !role) throw new Error('Token o rol inválido');
+
+      localStorage.setItem('token', authToken);
+      localStorage.setItem('role', role);
+      handleRedirectByRole(role);
+      recaptchaRef.current?.reset();
+    } catch (error: any) {
+      setServerError(error.message);
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      // Pedir el id_token usando el endpoint de Google
+      const resToken = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.access_token}`
+        }
+      });
+
+      const googleUser = await resToken.json();
+
+      // Ahora enviás al backend el tokenResponse.access_token como idToken
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: tokenResponse.access_token }) // esto lo procesás en el backend
+      });
+
+      const data = await res.json();
+
+      if (!data.token || !data.role) throw new Error('Token o rol inválido');
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('role', data.role);
+      navigate(data.role === 'teacher' ? '/teacher' : '/home');
+    } catch (err) {
+      console.error('Error al iniciar sesión con Google:', err);
+    }
+  },
+  onError: () => {
+    console.log('Login con Google falló');
+  },
+  flow: 'implicit'
+});
+
+
+  return (
+    <Container>
+      <PanelWrapper>
+        <LeftPanel
+          as={motion.div}
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Title>¡Hola de nuevo!</Title>
+
+            <Label>Email:</Label>
+            <Input {...register('email', { required: true })} />
+            {errors.email && <span>Campo requerido</span>}
+
+            <Label>Contraseña:</Label>
+            <Input type="password" {...register('password', { required: true })} />
+            {errors.password && <span>Campo requerido</span>}
+
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+              style={{ margin: '12px 0' }}
+            />
+
+            {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
+
+            <Button type="submit">Acceder</Button>
+
+            <GoogleButton type="button" onClick={() => googleLogin()}>
+              <GoogleIcon src={googleIcon} alt="Google" />
+              Iniciar sesión con Google
+            </GoogleButton>
+
+            <Button
+              type="button"
+              onClick={() => navigate('/register')}
+              style={{ backgroundColor: '#ccc', color: '#002b3f' }}
+            >
+              Registrate
+            </Button>
+          </Form>
+        </LeftPanel>
+
+        <RightPanel>
+          <GirlImage src={girlImage} alt="Chica usando celular" />
+        </RightPanel>
+      </PanelWrapper>
+    </Container>
+  );
+};
+
+export default Login;
