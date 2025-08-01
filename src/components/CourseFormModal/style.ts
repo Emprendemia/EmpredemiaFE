@@ -68,6 +68,8 @@ export const Textarea = styled.textarea`
 `;
 
 export const Button = styled.button`
+display:flex;
+justify-content:center;
   background: #002b3f;
   color: white;
   padding: 12px;
@@ -86,4 +88,49 @@ export const CloseButton = styled.button`
   right: 16px;
   cursor: pointer;
   color: #002b3f;
+`;
+
+export const Select = styled.select`
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 2px solid #002b3f;
+  background-color: white;
+  color: #111;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+
+  &:focus {
+    border: 3px solid #002235;
+  }
+
+  option {
+    background-color: white;
+    color: #111;
+  }
+`;
+
+export const ModuleRow = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+
+  input {
+    flex: 1;
+  }
+`;
+
+export const AddModuleButton = styled.button`
+  background-color: transparent;
+  border: 2px dashed #002b3f;
+  color: #002b3f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 16px;
+`;
+
+export const TimeInput = styled(Input)`
+  max-width: 120px;
 `;
