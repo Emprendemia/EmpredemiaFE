@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import { Theme } from '@mui/material/styles';
+import theme from '../../theme';
+
+declare module 'styled-components' {
+  export interface DefaultTheme extends Theme {}
+}
 
 export const Container = styled.div`
   display: flex;
@@ -135,19 +141,20 @@ export const Button = styled.button`
   margin-top: 12px;
   padding: 10px;
   border-radius: 20px;
-  background-color: #002b3f;
-  color:#f5f5f4;
+  background-color: ${theme.palette.secondary.main};
+  color:${theme.palette.secondary.contrastText};
   border: none;
   font-weight: 500;
   cursor: pointer;
 `;
 
 export const GoogleButton = styled(Button)`
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  color:${theme.palette.primary.contrastText};
 `;
 
 export const GoogleIcon = styled.img`

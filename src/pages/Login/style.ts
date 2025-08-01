@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Container = styled.div`
   display: flex;
@@ -104,7 +105,7 @@ export const Form = styled.form`
 export const Title = styled.h2`
   font-weight: bold;
   margin-bottom: 10px;
-  color: #000;
+  color:${theme.palette.secondary.contrastText};
 `;
 
 export const Label = styled.label`
@@ -132,15 +133,16 @@ export const Button = styled.button`
   margin-top: 12px;
   padding: 10px;
   border-radius: 20px;
-  background-color: #002b3f;
-  color:#f5f5f4;
+  background-color: ${theme.palette.secondary.main};
+  color:${theme.palette.secondary.contrastText}
   border: none;
   font-weight: 500;
   cursor: pointer;
 `;
 
 export const GoogleButton = styled(Button)`
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
+  color: ${theme.palette.primary.contrastText};
   display: flex;
   align-items: center;
   justify-content: center;

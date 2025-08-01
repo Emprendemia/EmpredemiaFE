@@ -148,7 +148,6 @@ const Login = () => {
             <Button
               type="button"
               onClick={() => navigate('/register')}
-              style={{ backgroundColor: '#ccc', color: '#002b3f' }}
             >
               Registrate
             </Button>

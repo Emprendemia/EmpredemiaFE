@@ -193,7 +193,6 @@ const Register = () => {
             <Button
               type="button"
               onClick={() => navigate('/login')}
-              style={{ backgroundColor: '#ccc', color: '#003049' }}
             >
               Iniciar sesión
             </Button>
