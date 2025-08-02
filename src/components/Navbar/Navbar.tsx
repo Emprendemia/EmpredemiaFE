@@ -1,6 +1,7 @@
 import { Container, Logo, NavItems, NavLink, NavButton, InnerWrapper } from './style';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/Logo-claro.png';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -17,11 +18,12 @@ const Navbar = () => {
     return (
         <Container>
             <InnerWrapper>
-                <Logo>
-                    <img src={logo} alt="Logo" />
-                    <span>Emprendemia</span>
-                </Logo>
-
+                <Link to="/home" style={{ textDecoration: 'none' }}>
+                    <Logo>
+                        <img src={logo} alt="Logo" />
+                        <span>Emprendemia</span>
+                    </Logo>
+                </Link>
                 <NavItems>
                     {(role === 'teacher' || role === 'admin') && (
                         <NavLink to="/teacher">Profesor</NavLink>

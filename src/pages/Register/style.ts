@@ -141,7 +141,7 @@ export const Button = styled.button`
   margin-top: 12px;
   padding: 10px;
   border-radius: 20px;
-  background-color: ${theme.palette.secondary.main};
+  background-color: ${theme.palette.primary.main};
   color:${theme.palette.secondary.contrastText};
   border: none;
   font-weight: 500;

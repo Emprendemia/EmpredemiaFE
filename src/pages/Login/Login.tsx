@@ -148,6 +148,7 @@ const Login = () => {
             <Button
               type="button"
               onClick={() => navigate('/register')}
+
             >
               Registrate
             </Button>

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ModalWrapper,
   ModalContent,
@@ -21,6 +21,7 @@ interface Props {
   onClose: () => void;
   onSuccess: () => void;
   defaultValues?: {
+    _id: string;
     title: string;
     description: string;
     hours: number;
@@ -30,7 +31,6 @@ interface Props {
       title: string;
       time: string;
     }[];
-    _id?: string;
   };
 }
 
@@ -58,19 +58,25 @@ const categories = [
 ];
 
 const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
-  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue
+  } = useForm<FormData>({
+    defaultValues: defaultValues || {}
+  });
+
   const [success, setSuccess] = useState(false);
-  const [modules, setModules] = useState<Module[]>(defaultValues?.modules || [{ title: '', time: '' }]);
+  const [modules, setModules] = useState<Module[]>([{ title: '', time: '' }]);
 
   useEffect(() => {
     if (defaultValues) {
-      setValue('title', defaultValues.title);
-      setValue('description', defaultValues.description);
-      setValue('hours', defaultValues.hours);
-      setValue('videoUrl', defaultValues.videoUrl);
-      setValue('category', defaultValues.category);
+      reset(defaultValues);
+      setModules(defaultValues.modules || [{ title: '', time: '' }]);
     }
-  }, [defaultValues, setValue]);
+  }, [defaultValues, reset]);
 
   const handleModuleChange = (index: number, field: keyof Module, value: string) => {
     const updated = [...modules];
@@ -94,10 +100,10 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
   const onSubmit = async (data: FormData) => {
     try {
       const token = localStorage.getItem('token');
-      const url = defaultValues?._id
+      const method = defaultValues ? 'PUT' : 'POST';
+      const url = defaultValues
         ? `${import.meta.env.VITE_API_URL}/courses/${defaultValues._id}`
         : `${import.meta.env.VITE_API_URL}/courses`;
-      const method = defaultValues?._id ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
         method,
@@ -105,10 +111,14 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ ...data, modules })
+        body: JSON.stringify({
+          ...data,
+          modules,
+          ...(defaultValues && { state: 'in_review' }) // solo en edición
+        })
       });
 
-      if (!res.ok) throw new Error('Error al guardar el curso');
+      if (!res.ok) throw new Error('Error al guardar curso');
 
       setSuccess(true);
       reset();
@@ -174,6 +184,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
             />
           </ModuleRow>
         ))}
+
         <AddModuleButton type="button" onClick={addModule}>+ Agregar módulo</AddModuleButton>
 
         <Button type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</Button>
@@ -184,7 +195,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
           <MuiAlert elevation={6} variant="filled" severity="success">
-            {defaultValues ? 'Curso actualizado' : 'Curso creado exitosamente'}
+            Curso {defaultValues ? 'actualizado' : 'creado'} exitosamente
           </MuiAlert>
         </Snackbar>
       </ModalContent>

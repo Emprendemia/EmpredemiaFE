@@ -9,6 +9,8 @@ import CourseDetail from '../pages/CourseDetail/CourseDetail';
 import ProtectedRoute from './ProtectedRoute';
 import HomeTeacher from '../pages/HomeTeacher/HomeTeacher';
 import PrivateLayout from '../components/PrivateLayout/PrivateLayout';
+import Profile from '../pages/Profile/Profile';
+import Administrar from '../pages/Administrar/Administrar';
 
 const Router = () => (
   <Routes>
@@ -31,10 +33,16 @@ const Router = () => (
         <ProtectedRoute><About /></ProtectedRoute>
       } />
       <Route path="/contact" element={
-        <ProtectedRoute><Contact /></ProtectedRoute>
+        <ProtectedRoute><Contact/></ProtectedRoute>
       } />
-      <Route path="/course/ejemplo" element={
+      <Route path="/profile" element={
+        <ProtectedRoute><Profile /></ProtectedRoute>
+      } />
+      <Route path="/course/:id" element={
         <ProtectedRoute><CourseDetail /></ProtectedRoute>
+      } />
+      <Route path="/administrar" element={
+        <ProtectedRoute><Administrar /></ProtectedRoute>
       } />
       <Route path="/teacher" element={
         <ProtectedRoute><HomeTeacher /></ProtectedRoute>

@@ -112,3 +112,4 @@ export const WebinarImage = styled.img`
   height: 200px;
   object-fit: cover;
 `;
+
