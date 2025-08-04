@@ -20,7 +20,6 @@ const Profile = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors }
   } = useForm();
 
@@ -74,7 +73,7 @@ const Profile = () => {
         }
       }
 
-      // ✅ Actualizar perfil
+      // Actualiza perfil
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
         method: 'PUT',
         headers: {
@@ -105,7 +104,8 @@ const Profile = () => {
         <FieldGroup>
           <Label>Nombre completo</Label>
           <Input {...register('fullname', { required: true, validate: validateFullName })} />
-          {errors.fullname && <ErrorText>{errors.fullname.message || 'Campo requerido'}</ErrorText>}
+          {errors.fullname && <ErrorText>{errors.fullname && <ErrorText>{String(errors.fullname.message || 'Campo requerido')}</ErrorText>}
+          </ErrorText>}
         </FieldGroup>
 
         <FieldGroup>
@@ -121,7 +121,8 @@ const Profile = () => {
               }
             })}
           />
-          {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+          {errors.email && <ErrorText>{errors.email && <ErrorText>{String(errors.email.message)}</ErrorText>}
+          </ErrorText>}
         </FieldGroup>
 
         {!isGoogleUser && (
