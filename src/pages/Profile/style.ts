@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Container = styled.div`
   max-width: 500px;
@@ -12,7 +13,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: #002B3F;
+  color: ${theme.palette.primary.main};
   margin-bottom: 24px;
 `;
 
@@ -31,7 +32,7 @@ export const FieldGroup = styled.div`
 
 export const Label = styled.label`
   font-weight: 600;
-  color: #002B3F;
+  color: ${theme.palette.text.primary};
   margin-bottom: 6px;
 `;
 
@@ -43,8 +44,8 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  background-color: #F4B535;
-  color: #0D4863;
+  background-color: ${theme.palette.secondary.main};
+  color: ${theme.palette.info.main};
   padding: 10px;
   border: none;
   border-radius: 20px;

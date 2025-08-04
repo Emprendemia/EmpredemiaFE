@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import contactBanner from '../../assets/mujer-contacto.jpg';
+import theme from '../../theme';
 
 export const Container = styled.div`
-  background-color: theme.palette.primary.contrastText;
+  background-color: ${theme.palette.primary.contrastText};
 `;
 
 export const Banner = styled.header`
@@ -19,7 +20,7 @@ export const Banner = styled.header`
 
 export const BannerTitle = styled.h1`
   box-shadow: 2px 3px 5px black;
-  color: theme.palette.primary.contrastText;
+  color: ${theme.palette.primary.contrastText};
   font-size: 60px;
 `;
 
@@ -42,7 +43,7 @@ export const IntroText = styled.p`
 `;
 
 export const FormRecuadro = styled.div`
-  background-color: theme.palette.primary.main;
+  background-color: ${theme.palette.primary.main};
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -53,7 +54,7 @@ export const FormRecuadro = styled.div`
 `;
 
 export const FormTitle = styled.h2`
-  color: theme.palette.primary.contrastText;
+  color: ${theme.palette.primary.contrastText};
   padding: 10px;
 `;
 
@@ -91,7 +92,7 @@ export const TextAreaField = styled.textarea`
 export const SubmitButton = styled.button`
   width: 100%;
   height: 40px;
-  color: theme.palette.secondary.main;
+  color: ${theme.palette.secondary.main};
   border-radius: 10px;
   border: none;
   cursor: pointer;

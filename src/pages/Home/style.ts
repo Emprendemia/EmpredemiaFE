@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import theme from '../../theme';
 
 export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: #fcfefc;
+  background-color: ${theme.palette.background.default};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +33,7 @@ export const ContentWrapper = styled.div`
 
 export const Title = styled.h1`
   font-size: 3rem;
-  color: #002b3f;
+  color: ${theme.palette.primary.main};
   margin-bottom: 10px;
 
   @media (max-width: 768px) {
@@ -74,7 +75,7 @@ export const LastCourseWrapper = styled.div`
   margin-top: 40px;
   width: 100%;
   max-width: 800px;
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
   color: white;
   padding: 24px;
   border-radius: 16px;
@@ -112,8 +113,8 @@ export const ProgressBarFill = styled.div`
 export const ContinueButton = styled(Link)`
   margin-top: 16px;
   display: inline-block;
-  background-color: #ffffff;
-  color: #002b3f;
+  background-color: ${theme.palette.background.paper};
+  color: ${theme.palette.primary.main};
   padding: 8px 20px;
   font-weight: 600;
   border-radius: 20px;

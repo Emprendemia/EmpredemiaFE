@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Container = styled.div`
   max-width: 1100px;
@@ -11,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: theme.palette.text.primary;
+  color: ${theme.palette.text.primary};
   margin-bottom: 24px;
 `;
 
@@ -29,7 +30,7 @@ export const Tr = styled.tr`
 
 export const Th = styled.th`
   padding: 12px;
-  background-color: theme.palette.primary.main;
+  background-color: ${theme.palette.primary.main};
   color: white;
   text-align: left;
 `;
@@ -48,7 +49,7 @@ export const Select = styled.select`
 `;
 
 export const Button = styled.button`
-  background-color: theme.palette.secondary.main;
+  background-color: ${theme.palette.secondary.main};
   color: #0D4863;
   padding: 8px 16px;
   border: none;

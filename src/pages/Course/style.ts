@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import cursosImg from '../../assets/comprador-personal-en-la-oficina-con-el-cliente.jpg';
+import theme from '../../theme';
 
 export const Container = styled.div`
 /*   background-color: #002B3F;  theme.primary theme.danger */ 
-background-color: #fcfefc;
+background-color: ${theme.palette.primary.contrastText};
 padding-bottom: 60px;
   font-family: 'Inter', sans-serif;
 `;
@@ -36,7 +37,7 @@ export const CoursesGrid = styled.div`
 `;
 
 export const CourseCard = styled.section`
-  background-color: #002B3F;
+  background-color: ${theme.palette.primary.main};
   color: #E0E0E0;
   width: 280px;
   height: 360px;
@@ -68,8 +69,8 @@ export const CourseDescription = styled.h4`
 `;
 
 export const CourseButton = styled.button`
-  background-color: #F4B535;
-  color: #0D4863;
+  background-color: ${theme.palette.secondary.main};
+  color: ${theme.palette.info.main};
   border: none;
   border-radius: 6px;
   padding: 10px 0;
@@ -112,4 +113,3 @@ export const WebinarImage = styled.img`
   height: 200px;
   object-fit: cover;
 `;
-

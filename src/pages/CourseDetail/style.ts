@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Container = styled.div`
   padding: 40px 20px;
   max-width: 1000px;
   margin: 0 auto;
-  background-color: #fcfefc;
+  background-color: ${theme.palette.primary.contrastText};
 `;
 
 export const Title = styled.h1`
-  color: #002b3f;
+  color: ${theme.palette.primary.main};
   font-size: 2.5rem;
   margin-bottom: 10px;
 `;
@@ -48,8 +49,8 @@ export const ModuleItem = styled.div`
 `;
 
 export const ModuleButton = styled.button`
-  background-color: #F4B535;
-  color: #0D4863;
+  background-color: ${theme.palette.secondary.main};
+  color: ${theme.palette.info.main};
   font-weight: bold;
   border: none;
   padding: 8px 12px;

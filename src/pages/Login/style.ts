@@ -34,7 +34,7 @@ export const PanelWrapper = styled.div`
 
 export const LeftPanel = styled.div`
   width: 70%;
-  background-color: #fcfefc;
+  background-color: ${theme.palette.background.default};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ export const LeftPanel = styled.div`
 
 export const RightPanel = styled.div`
   width: 30%;
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
   position: relative;
   display: flex;
   justify-content: center;
@@ -116,7 +116,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   padding: 10px 16px;
   border-radius: 20px;
-  border: 2px solid #002b3f;
+  border: 2px solid ${theme.palette.primary.main};
   background-color: white;
   outline: none;
   transition: border 0.2s;
@@ -165,7 +165,7 @@ export const GoogleIcon = styled.img`
 
   a {
     text-decoration: underline;
-    color: #002b3f;
+    color: ${theme.palette.primary.main};
     font-weight: 500;
   }
 `;

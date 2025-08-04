@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 40px 20px;
-  background-color: #fcfefc;
+  background-color: ${theme.palette.primary.contrastText};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +13,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 2.5rem;
-  color: #002b3f;
+  color: ${theme.palette.primary.main};
   margin-bottom: 30px;
 `;
 
@@ -28,7 +29,7 @@ export const CoursesWrapper = styled.div`
 export const CourseCard = styled.div`
   width: 300px;
   height: 360px;
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
   border-radius: 16px;
   padding: 20px;
   color: #fff;
@@ -82,7 +83,7 @@ export const DropdownMenu = styled.div`
   top: 32px;
   right: 0;
   background: white;
-  color: #002b3f;
+  color: ${theme.palette.primary.main};
   border-radius: 8px;
   padding: 10px;
   z-index: 10;
@@ -164,7 +165,7 @@ export const ClockIcon = styled.span`
 
 export const ViewButton = styled.button`
   background: #fff;
-  color: #002b3f;
+  color: ${theme.palette.primary.main};
   border: none;
   padding: 6px 14px;
   border-radius: 12px;
@@ -174,7 +175,7 @@ export const ViewButton = styled.button`
 
 export const CreateButton = styled.button`
   margin-top: 40px;
-  background-color: #002b3f;
+  background-color: ${theme.palette.primary.main};
   color: #fff;
   padding: 14px 28px;
   border: none;
