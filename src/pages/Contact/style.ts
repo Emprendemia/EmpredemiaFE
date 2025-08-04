@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import contactBanner from '../../assets/mujer-contacto.jpg';
-import theme from '../../theme';
 
 export const Container = styled.div`
-  background-color: #fcfefc;
-  `
-    ;
+  background-color: theme.palette.primary.contrastText;
+`;
 
 export const Banner = styled.header`
   background-image: url(${contactBanner});
@@ -16,50 +14,48 @@ export const Banner = styled.header`
   background-size: cover;
   display: flex;
   justify-content: center;
-  align-items: center;`
-    ;
+  align-items: center;
+`;
 
 export const BannerTitle = styled.h1`
-/* background-color:${theme.palette.primary.main};
-  box-shadow: 2px 3px 5px black; */
-  color:${theme.palette.primary.main};
-  font-family:${theme.typography.fontFamily};
-  font-size: 60px;`
-    ;
+  box-shadow: 2px 3px 5px black;
+  color: theme.palette.primary.contrastText;
+  font-size: 60px;
+`;
 
 export const MainContent = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;`
-    ;
+  align-items: center;
+`;
 
 export const IntroSection = styled.div`
   width: 50%;
-  margin: 40px;`
-    ;
+  margin: 40px;
+`;
 
 export const IntroText = styled.p`
   color: black;
   font-size: 20px;
-  text-align: center;`
-    ;
+  text-align: center;
+`;
 
 export const FormRecuadro = styled.div`
-  background-color: #002B3F;
+  background-color: theme.palette.primary.main;
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  margin-bottom: 30px;`
-    ;
+  margin-bottom: 30px;
+`;
 
 export const FormTitle = styled.h2`
-  color: #fcfefc;
-  padding: 10px;`
-    ;
+  color: theme.palette.primary.contrastText;
+  padding: 10px;
+`;
 
 export const ContactForm = styled.form`
   width: 500px;
@@ -68,20 +64,20 @@ export const ContactForm = styled.form`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin: 10px;`
-    ;
+  margin: 10px;
+`;
 
 export const InputGroup = styled.div`
-  width: 100%;`
-    ;
+  width: 100%;
+`;
 
 export const InputField = styled.input`
   width: 100%;
   height: 40px;
   border-radius: 10px;
   border: none;
-  padding: 0 10px;`
-    ;
+  padding: 0 10px;
+`;
 
 export const TextAreaField = styled.textarea`
   width: 100%;
@@ -89,19 +85,15 @@ export const TextAreaField = styled.textarea`
   border-radius: 10px;
   border: none;
   padding: 10px;
-  resize: none;`
-    ;
+  resize: none;
+`;
 
 export const SubmitButton = styled.button`
-display:flex;
-align-items:center;
-justify-content:center;
   width: 100%;
   height: 40px;
-  background-color: darkgoldenrod;
-  color: #fcfefc;
+  color: theme.palette.secondary.main;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  font-size: 16px;`
-    ;
+  font-size: 16px;
+`;
