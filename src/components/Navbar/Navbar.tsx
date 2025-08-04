@@ -9,6 +9,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/login');
     };
 
@@ -25,6 +26,7 @@ const Navbar = () => {
                     </Logo>
                 </Link>
                 <NavItems>
+                    <NavLink to="/home">Home</NavLink>
                     {(role === 'teacher' || role === 'admin') && (
                         <NavLink to="/teacher">Profesor</NavLink>
                     )}
@@ -36,6 +38,7 @@ const Navbar = () => {
                     <NavLink to="/course">Cursos</NavLink>
                     <NavLink to="/profile">Perfil</NavLink>
                     <NavLink to="/contact">Contacto</NavLink>
+                    <NavLink to="/About">Sobre Nosotros</NavLink>
                     <NavButton onClick={handleLogout}>Salir</NavButton>
                 </NavItems>
             </InnerWrapper>
