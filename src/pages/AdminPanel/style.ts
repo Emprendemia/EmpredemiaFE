@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: #002B3F;
+  color: theme.palette.text.primary;
   margin-bottom: 24px;
 `;
 
@@ -29,7 +29,7 @@ export const Tr = styled.tr`
 
 export const Th = styled.th`
   padding: 12px;
-  background-color: #002B3F;
+  background-color: theme.palette.primary.main;
   color: white;
   text-align: left;
 `;
@@ -48,7 +48,7 @@ export const Select = styled.select`
 `;
 
 export const Button = styled.button`
-  background-color: #F4B535;
+  background-color: theme.palette.secondary.main;
   color: #0D4863;
   padding: 8px 16px;
   border: none;
