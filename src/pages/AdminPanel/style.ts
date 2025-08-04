@@ -37,6 +37,7 @@ export const Th = styled.th`
 export const Td = styled.td`
   padding: 12px;
   border-bottom: 1px solid #ddd;
+  text-align: left;
 `;
 
 export const Select = styled.select`
@@ -62,36 +63,20 @@ export const Button = styled.button`
   }
 `;
 
-export const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const ExpandButton = styled(Button)`
+  font-size: 0.875rem;
+  padding: 6px 12px;
 `;
 
-export const ModalContent = styled.div`
-  background: white;
-  padding: 30px;
+export const Pill = styled.span<{ state: string }>`
+  display: inline-block;
+  padding: 4px 12px;
   border-radius: 12px;
-  max-width: 600px;
-  width: 90%;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-  text-align: left;
-
-  h3 {
-    margin-bottom: 12px;
-    color: #002B3F;
-  }
-
-  p {
-    margin-bottom: 20px;
-    color: #333;
-  }
-
-  ${Table} {
-    margin-top: 10px;
-  }
-`
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: white;
+  background-color: ${({ state }) =>
+    state === 'published' ? '#4CAF50' :
+    state === 'in_review' ? '#FFC107' :
+    state === 'inactive' ? '#F44336' : '#999'};
+`;
