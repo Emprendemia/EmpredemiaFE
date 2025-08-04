@@ -6,7 +6,7 @@ export const ModalWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,31 +19,25 @@ export const ModalContent = styled.form`
   border-radius: 16px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
-
-  span {
-    color: red;
-    font-size: 12px;
-    margin-top: -8px;
-  }
 `;
 
-export const Title = styled.h3`
+export const ModalTitle = styled.h3`
   font-size: 1.6rem;
   color: #002b3f;
   margin-bottom: 8px;
 `;
 
-export const Label = styled.label`
+export const ModalLabel = styled.label`
   font-size: 14px;
   color: #111;
 `;
 
-export const Input = styled.input`
+export const ModalInput = styled.input`
   padding: 10px;
   border: 2px solid #002b3f;
   border-radius: 12px;
@@ -55,7 +49,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Textarea = styled.textarea`
+export const ModalTextarea = styled.textarea`
   padding: 10px;
   border: 2px solid #002b3f;
   border-radius: 12px;
@@ -67,30 +61,7 @@ export const Textarea = styled.textarea`
   }
 `;
 
-export const Button = styled.button`
-display:flex;
-justify-content:center;
-  background: #002b3f;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-export const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 24px;
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  cursor: pointer;
-  color: #002b3f;
-`;
-
-export const Select = styled.select`
+export const StyledSelect = styled.select`
   padding: 10px 16px;
   border-radius: 20px;
   border: 2px solid #002b3f;
@@ -109,6 +80,10 @@ export const Select = styled.select`
     background-color: white;
     color: #111;
   }
+`;
+
+export const TimeInput = styled(ModalInput)`
+  max-width: 120px;
 `;
 
 export const ModuleRow = styled.div`
@@ -131,6 +106,31 @@ export const AddModuleButton = styled.button`
   margin-bottom: 16px;
 `;
 
-export const TimeInput = styled(Input)`
-  max-width: 120px;
+export const ModalButton = styled.button`
+  display: flex;
+  justify-content: center;
+  background: #002b3f;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const CloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  cursor: pointer;
+  color: #002b3f;
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-size: 12px;
+  margin-top: -8px;
 `;

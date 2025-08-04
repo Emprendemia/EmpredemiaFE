@@ -49,7 +49,13 @@ const Profile = () => {
   const onSubmit = async (formData: any) => {
     const token = localStorage.getItem('token');
     try {
-      if (!isGoogleUser && formData.currentPassword) {
+      // 🔐 Solo si quiere cambiar la contraseña
+      if (!isGoogleUser && formData.newPassword) {
+        if (!formData.currentPassword) {
+          setErrorMsg('Debes ingresar tu contraseña actual');
+          return;
+        }
+
         const resPass = await fetch(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
           method: 'PUT',
           headers: {
@@ -58,7 +64,7 @@ const Profile = () => {
           },
           body: JSON.stringify({
             currentPassword: formData.currentPassword,
-            newPassword: formData.newPassword || 'nochange_temp'
+            newPassword: formData.newPassword
           })
         });
 
@@ -66,11 +72,9 @@ const Profile = () => {
           const data = await resPass.json();
           throw new Error(data.message || 'Error al validar contraseña');
         }
-      } else if (!isGoogleUser && !formData.currentPassword) {
-        setErrorMsg('Debes ingresar tu contraseña actual');
-        return;
       }
 
+      // ✅ Actualizar perfil
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
         method: 'PUT',
         headers: {
