@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+<H1>Emprendemia</H1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción del proyecto:
+Emprendemia es una plataforma web diseñada para capacitar a emprendedores. Nuestro objetivo es ofrecer cursos que abarcan desde la gestión financiera hasta la sistematización de negocios, ayudando a los emprendedores a formalizar y escalar sus proyectos. Detectamos una necesidad real en el mercado de herramientas accesibles para aquellos que inician su camino de manera informal y buscan crecer.
 
-Currently, two official plugins are available:
+## Funcionalidades Principales
+Nuestra plataforma está diseñada con una arquitectura de roles para ofrecer una experiencia segura y personalizada:
+- Gestión de Cursos: Los profesores pueden crear y eliminar cursos a través de su panel de usuario.
+- Sistema de Roles: La plataforma cuenta con tres roles de usuario: Administrador, Profesor y Usuario, cada uno con permisos específicos.
+- Autenticación Segura: Los usuarios pueden registrarse e iniciar sesión de manera segura para acceder a la plataforma y a sus funcionalidades.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+El proyecto fue desarrollado utilizando las siguientes tecnologías y herramientas:
+-   **Frontend:**
+    -   HTML5
+    -   CSS3
+    -   JavaScript
+    -   React
+-   **Backend:**
+    -   Node.js
+    -   Express.js
+-   **Base de Datos:**
+    -   MongoDB
+-   **Herramientas de desarrollo y diseño:**
+    -   Git / Github
+    -   npm
+    -   Trello
+    -   Figma
+ 
+## Guia de Instalación
+Sigue estos pasos para tener una copia local del proyecto funcionando:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  Clona el repositorio:
+    ```bash
+    git clone [https://github.com/tu-usuario/tu-proyecto.git](https://github.com/tu-usuario/tu-proyecto.git)
+    ```
+2.  Navega al directorio del proyecto:
+    ```bash
+    cd tu-proyecto
+    ```
+3.  Instala las dependencias:
+    ```bash
+    npm install
+    ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Uso
+Para iniciar el servidor de desarrollo, ejecuta el siguiente comando:
+```bash
+npm run dev
 ```
+El servidor se iniciará y podrás acceder a la página web en tu navegador a través de http://localhost:3000 (o el puerto que hayas configurado).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Equipo de desarrollo:
+Este proyecto fue desarrollado por:
+- Rodrigo Olivarez
+- Ivan Ibazeta
+- Nayla Jimenez
+- Romina Rosa
+- Florencia Figueroa
