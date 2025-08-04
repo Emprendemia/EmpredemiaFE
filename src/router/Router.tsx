@@ -10,7 +10,7 @@ import ProtectedRoute from './ProtectedRoute';
 import HomeTeacher from '../pages/HomeTeacher/HomeTeacher';
 import PrivateLayout from '../components/PrivateLayout/PrivateLayout';
 import Profile from '../pages/Profile/Profile';
-import Administrar from '../pages/Administrar/Administrar';
+import Administrar from '../pages/AdminPanel/AdminPanel';
 
 const Router = () => (
   <Routes>

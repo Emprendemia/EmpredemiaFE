@@ -3,16 +3,17 @@ import { useState, useEffect } from 'react';
 import {
   ModalWrapper,
   ModalContent,
-  Title,
-  Label,
-  Input,
-  Textarea,
-  Button,
+  ModalTitle,
+  ModalLabel,
+  ModalInput,
+  ModalTextarea,
+  ModalButton,
   CloseButton,
-  Select,
+  StyledSelect,
   ModuleRow,
   AddModuleButton,
-  TimeInput
+  TimeInput,
+  ErrorText
 } from './style';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -42,7 +43,7 @@ interface Module {
 interface FormData {
   title: string;
   description: string;
-  hours: number;
+  hours: string;
   videoUrl: string;
   category: string;
 }
@@ -62,8 +63,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    setValue
+    reset
   } = useForm<FormData>({
     defaultValues: defaultValues || {}
   });
@@ -113,8 +113,9 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
         },
         body: JSON.stringify({
           ...data,
+          hours: parseFloat(data.hours),
           modules,
-          ...(defaultValues && { state: 'in_review' }) // solo en edición
+          ...(defaultValues && { state: 'in_review' })
         })
       });
 
@@ -133,37 +134,43 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     <ModalWrapper>
       <ModalContent onSubmit={handleSubmit(onSubmit)}>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <Title>{defaultValues ? 'Editar Curso' : 'Nuevo Curso'}</Title>
+        <ModalTitle>{defaultValues ? 'Editar Curso' : 'Nuevo Curso'}</ModalTitle>
 
-        <Label>Título</Label>
-        <Input {...register('title', { required: true })} />
-        {errors.title && <span>Campo requerido</span>}
+        <ModalLabel>Título</ModalLabel>
+        <ModalInput {...register('title', { required: true })} />
+        {errors.title && <ErrorText>Campo requerido</ErrorText>}
 
-        <Label>Descripción</Label>
-        <Textarea {...register('description', { required: true })} rows={3} />
-        {errors.description && <span>Campo requerido</span>}
+        <ModalLabel>Descripción</ModalLabel>
+        <ModalTextarea {...register('description', { required: true })} rows={3} />
+        {errors.description && <ErrorText>Campo requerido</ErrorText>}
 
-        <Label>Categoría</Label>
-        <Select {...register('category', { required: true })}>
+        <ModalLabel>Categoría</ModalLabel>
+        <StyledSelect {...register('category', { required: true })}>
           <option value="">Seleccioná una categoría</option>
           {categories.map((cat, i) => (
             <option key={i} value={cat}>{cat}</option>
           ))}
-        </Select>
-        {errors.category && <span>Campo requerido</span>}
+        </StyledSelect>
+        {errors.category && <ErrorText>Campo requerido</ErrorText>}
 
-        <Label>Cantidad de horas</Label>
-        <Input type="number" {...register('hours', { required: true })} />
-        {errors.hours && <span>Campo requerido</span>}
+        <ModalLabel>Cantidad de horas</ModalLabel>
+        <StyledSelect {...register('hours', { required: true })}>
+          <option value="">Seleccioná duración</option>
+          {[...Array(20)].map((_, i) => {
+            const val = 0.5 * (i + 1);
+            return <option key={val} value={val}>{val}</option>;
+          })}
+        </StyledSelect>
+        {errors.hours && <ErrorText>Campo requerido</ErrorText>}
 
-        <Label>Video URL</Label>
-        <Input {...register('videoUrl', { required: true })} />
-        {errors.videoUrl && <span>Campo requerido</span>}
+        <ModalLabel>Video URL</ModalLabel>
+        <ModalInput {...register('videoUrl', { required: true })} />
+        {errors.videoUrl && <ErrorText>Campo requerido</ErrorText>}
 
-        <Label>Módulos</Label>
+        <ModalLabel>Módulos</ModalLabel>
         {modules.map((mod, idx) => (
           <ModuleRow key={idx}>
-            <Input
+            <ModalInput
               placeholder="Título"
               value={mod.title}
               onChange={e => handleModuleChange(idx, 'title', e.target.value)}
@@ -186,8 +193,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
         ))}
 
         <AddModuleButton type="button" onClick={addModule}>+ Agregar módulo</AddModuleButton>
-
-        <Button type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</Button>
+        <ModalButton type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</ModalButton>
 
         <Snackbar
           open={success}
