@@ -24,7 +24,7 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: `'Inter', sans-serif`
+    fontFamily: `'Segoe UI', sans-serif`
   },
   components: {
     MuiButton: {
