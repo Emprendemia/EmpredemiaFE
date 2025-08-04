@@ -13,7 +13,8 @@ import {
   ModuleRow,
   AddModuleButton,
   TimeInput,
-  ErrorText
+  ErrorText,
+  DeleteModuleButton
 } from './style';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -65,15 +66,30 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     formState: { errors },
     reset
   } = useForm<FormData>({
-    defaultValues: defaultValues || {}
-  });
+    defaultValues: defaultValues
+      ? {
+        title: defaultValues.title,
+        description: defaultValues.description,
+        hours: String(defaultValues.hours),
+        videoUrl: defaultValues.videoUrl,
+        category: defaultValues.category
+      }
+      : {}
+  })
 
   const [success, setSuccess] = useState(false);
   const [modules, setModules] = useState<Module[]>([{ title: '', time: '' }]);
 
   useEffect(() => {
     if (defaultValues) {
-      reset(defaultValues);
+      reset({
+        title: defaultValues.title,
+        description: defaultValues.description,
+        hours: String(defaultValues.hours),
+        videoUrl: defaultValues.videoUrl,
+        category: defaultValues.category
+      });
+      ;
       setModules(defaultValues.modules || [{ title: '', time: '' }]);
     }
   }, [defaultValues, reset]);
@@ -87,6 +103,11 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
   const addModule = () => {
     setModules(prev => [...prev, { title: '', time: '' }]);
   };
+
+  const removeModule = (index: number) => {
+  setModules(prev => prev.filter((_, i) => i !== index));
+};
+
 
   const formatTimeInput = (value: string) => {
     const digits = value.replace(/\D/g, '').slice(0, 6);
@@ -189,8 +210,16 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
               required
               title="Formato HH:MM:SS"
             />
+            <DeleteModuleButton
+              type="button"
+              onClick={() => removeModule(idx)}
+              title="Eliminar módulo"
+            >
+              ×
+            </DeleteModuleButton>
           </ModuleRow>
         ))}
+
 
         <AddModuleButton type="button" onClick={addModule}>+ Agregar módulo</AddModuleButton>
         <ModalButton type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</ModalButton>

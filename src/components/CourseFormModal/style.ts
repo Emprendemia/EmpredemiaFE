@@ -106,6 +106,17 @@ export const AddModuleButton = styled.button`
   margin-bottom: 16px;
 `;
 
+export const DeleteModuleButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: red;
+  cursor: pointer;
+  padding: 0 8px;
+  align-self: center;
+`;
+
+
 export const ModalButton = styled.button`
   display: flex;
   justify-content: center;
