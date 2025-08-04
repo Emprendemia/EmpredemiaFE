@@ -20,6 +20,7 @@ const Profile = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors }
   } = useForm();
 
@@ -47,14 +48,18 @@ const Profile = () => {
 
   const onSubmit = async (formData: any) => {
     const token = localStorage.getItem('token');
+    setErrorMsg('');
+    setSuccessMsg('');
+
     try {
-      // 🔐 Solo si quiere cambiar la contraseña
-      if (!isGoogleUser && formData.newPassword) {
+      if (!isGoogleUser) {
+        // Requiere contraseña actual para actualizar cualquier cosa
         if (!formData.currentPassword) {
           setErrorMsg('Debes ingresar tu contraseña actual');
           return;
         }
 
+        // Valida la contraseña actual (obligatoria siempre)
         const resPass = await fetch(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
           method: 'PUT',
           headers: {
@@ -63,17 +68,17 @@ const Profile = () => {
           },
           body: JSON.stringify({
             currentPassword: formData.currentPassword,
-            newPassword: formData.newPassword
+            newPassword: formData.newPassword || formData.currentPassword // si no hay nueva, deja la actual
           })
         });
 
         if (!resPass.ok) {
           const data = await resPass.json();
-          throw new Error(data.message || 'Error al validar contraseña');
+          throw new Error(data.message || 'Contraseña actual incorrecta');
         }
       }
 
-      // Actualiza perfil
+      // Actualiza nombre/email (para Google o normal)
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
         method: 'PUT',
         headers: {
@@ -89,9 +94,7 @@ const Profile = () => {
       if (!res.ok) throw new Error('Error al actualizar perfil');
 
       setSuccessMsg('Perfil actualizado correctamente');
-      setErrorMsg('');
     } catch (err: any) {
-      setSuccessMsg('');
       setErrorMsg(err.message);
     }
   };
@@ -104,8 +107,7 @@ const Profile = () => {
         <FieldGroup>
           <Label>Nombre completo</Label>
           <Input {...register('fullname', { required: true, validate: validateFullName })} />
-          {errors.fullname && <ErrorText>{errors.fullname && <ErrorText>{String(errors.fullname.message || 'Campo requerido')}</ErrorText>}
-          </ErrorText>}
+          {errors.fullname && <ErrorText>{String(errors.fullname.message || 'Campo requerido')}</ErrorText>}
         </FieldGroup>
 
         <FieldGroup>
@@ -121,15 +123,15 @@ const Profile = () => {
               }
             })}
           />
-          {errors.email && <ErrorText>{errors.email && <ErrorText>{String(errors.email.message)}</ErrorText>}
-          </ErrorText>}
+          {errors.email && <ErrorText>{String(errors.email.message)}</ErrorText>}
         </FieldGroup>
 
         {!isGoogleUser && (
           <>
             <FieldGroup>
               <Label>Contraseña actual</Label>
-              <Input type="password" {...register('currentPassword')} />
+              <Input type="password" {...register('currentPassword', { required: true })} />
+              {errors.currentPassword && <ErrorText>Campo requerido</ErrorText>}
             </FieldGroup>
 
             <FieldGroup>
