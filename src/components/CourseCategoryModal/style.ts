@@ -48,40 +48,7 @@ export const CoursesGrid = styled.div`
   justify-content: center;
 `;
 
-export const CourseCard = styled.div`
-  background-color: #002b3f;
-  color: #e0e0e0;
-  width: 250px;
-  height: 260px;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
-export const CourseTitle = styled.h3`
-  font-size: 1.1rem;
-  margin: 0;
-`;
-
-export const CourseDescription = styled.p`
-  font-size: 0.9rem;
-  margin: 10px 0;
-  height: 60px;
-  overflow: hidden;
-`;
-
-export const CourseButton = styled.button`
-  background-color: #f4b535;
-  color: #0d4863;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 0;
-  cursor: pointer;
-`;
 
 export const PaginationWrapper = styled.div`
   margin-top: 20px;
