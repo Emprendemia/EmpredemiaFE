@@ -111,19 +111,19 @@ export const ProgressBarFill = styled.div`
 
 
 export const ContinueButton = styled(Link)`
+  background-color: ${theme.palette.secondary.main};
+  color: ${theme.palette.primary.main};
   margin-top: 16px;
   display: inline-block;
-  background-color: ${theme.palette.background.paper};
-  color: ${theme.palette.primary.main};
   padding: 8px 20px;
-  font-weight: 600;
-  border-radius: 20px;
+  font-weight: bold;
+  border-radius: 10px;
   text-decoration: none;
   font-size: 0.95rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #e0a728;
   }
 `;
 

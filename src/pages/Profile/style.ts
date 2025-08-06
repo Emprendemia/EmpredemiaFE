@@ -45,10 +45,10 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   background-color: ${theme.palette.secondary.main};
-  color: ${theme.palette.info.main};
+  color: ${theme.palette.primary.main};
   padding: 10px;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
