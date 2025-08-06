@@ -3,44 +3,20 @@ import {
   Container,
   Title,
   CoursesWrapper,
-  CourseCard,
   CardTop,
-  CardContent,
   MenuButton,
   DropdownMenu,
-  ViewButton,
-  CreateButton,
-  LeftContent,
-  RightContent,
-  StatusPill,
-  Hours,
-  ClockIcon
+  CreateButton
 } from './style';
-import { FaClock } from 'react-icons/fa';
 import CourseFormModal from '../../components/CourseFormModal/CourseFormModal';
-import { useNavigate } from 'react-router-dom';
-
-interface Course {
-  _id: string;
-  title: string;
-  description: string;
-  hours: number;
-  videoUrl: string;
-  category: string;
-  state: string;
-  modules: {
-    title: string;
-    time: string;
-  }[];
-}
-
+import CourseCard from '../../components/CourseCard/CourseCard';
+import { Course } from '../../interface/interface';
 
 const HomeTeacher = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState<Course | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const fetchCourses = async () => {
     try {
@@ -84,7 +60,7 @@ const HomeTeacher = () => {
 
       <CoursesWrapper>
         {courses.map(course => (
-          <CourseCard key={course._id}>
+          <div key={course._id} style={{ position: 'relative' }}>
             <CardTop>
               <MenuButton onClick={() =>
                 setOpenDropdown(openDropdown === course._id ? null : course._id)
@@ -115,30 +91,13 @@ const HomeTeacher = () => {
               )}
             </CardTop>
 
-            <CardContent>
-              <LeftContent>
-                <h3>{course.title}</h3>
-                <p>{course.description}</p>
-                <StatusPill state={course.state}>
-                  {course.state === 'published'
-                    ? 'Publicado'
-                    : course.state === 'in_review'
-                    ? 'En Revisión'
-                    : 'De Baja'}
-                </StatusPill>
-              </LeftContent>
+            <CourseCard
+              course={course}
+              showState
+            />
 
-              <RightContent>
-                <Hours>
-                  <ClockIcon><FaClock /></ClockIcon>
-                  {course.hours} hs
-                </Hours>
-                <ViewButton onClick={() => navigate(`/course/${course._id}`)}>
-                  Ver
-                </ViewButton>
-              </RightContent>
-            </CardContent>
-          </CourseCard>
+
+          </div>
         ))}
       </CoursesWrapper>
 

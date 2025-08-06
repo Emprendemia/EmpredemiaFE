@@ -26,18 +26,6 @@ export const CoursesWrapper = styled.div`
   max-width: 1400px;
 `;
 
-export const CourseCard = styled.div`
-  width: 300px;
-  height: 360px;
-  background-color: ${theme.palette.primary.main};
-  border-radius: 16px;
-  padding: 20px;
-  color: #fff;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
 export const CardTop = styled.div`
   display: flex;
@@ -139,8 +127,8 @@ export const StatusPill = styled.div<{ state: string }>`
     state === 'published'
       ? '#4CAF50'
       : state === 'in_review'
-      ? '#FFC107'
-      : '#F44336'};
+        ? '#FFC107'
+        : '#F44336'};
 `;
 
 export const RightContent = styled.div`

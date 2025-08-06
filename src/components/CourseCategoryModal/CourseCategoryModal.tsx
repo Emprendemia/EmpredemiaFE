@@ -5,20 +5,11 @@ import {
     CloseButton,
     Title,
     CoursesGrid,
-    CourseCard,
-    CourseTitle,
-    CourseDescription,
     PaginationWrapper,
     PageButton,
-    CourseButton
 } from './style';
-
-interface Course {
-    _id: string;
-    title: string;
-    description: string;
-    category: string;
-}
+import CourseCard from '../CourseCard/CourseCard';
+import { Course } from '../../interface/interface';
 
 interface Props {
     category: string;
@@ -74,15 +65,13 @@ const CourseCategoryModal = ({ category, onClose }: Props) => {
                 <Title>{category}</Title>
                 <CoursesGrid>
                     {currentCourses.map((course) => (
-                        <CourseCard key={course._id}>
-                            <CourseTitle>{course.title}</CourseTitle>
-                            <CourseDescription>{course.description}</CourseDescription>
-                            <CourseButton onClick={() => window.location.href = `/course/${course._id}`}>
-                                Ver curso
-                            </CourseButton>
-                        </CourseCard>
+                        <CourseCard
+                            key={course._id}
+                            course={course}
+                        />
                     ))}
                 </CoursesGrid>
+
 
                 <PaginationWrapper>
                     {Array.from({ length: totalPages }, (_, i) => (
