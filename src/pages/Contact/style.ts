@@ -19,9 +19,10 @@ export const Banner = styled.header`
 `;
 
 export const BannerTitle = styled.h1`
-  box-shadow: 2px 3px 5px black;
-  color: ${theme.palette.primary.contrastText};
-  font-size: 60px;
+   color: white;
+   font-size: 5rem;
+   font-weight: bold;
+   margin: 0;
 `;
 
 export const MainContent = styled.main`

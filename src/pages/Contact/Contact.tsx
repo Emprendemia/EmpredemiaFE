@@ -18,11 +18,11 @@ const Contact = () => {
   return (
     <Container>
       <Banner>
-        
+        <BannerTitle>CONTACTO</BannerTitle>
       </Banner>
 
       <MainContent>
-        <BannerTitle>Contacto</BannerTitle>
+        
         <IntroSection>
           <IntroText>
             ¡Tu voz es muy importante para nosotros!
