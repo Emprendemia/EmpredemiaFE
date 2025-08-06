@@ -13,7 +13,7 @@ import {
 
 import Rodrigo from '../../assets/Rodrigo.jpeg';
 import Nayla from '../../assets/Nayla.jpeg';
-import Ivan from '../../assets/boy.png';
+import Ivan from '../../assets/Ivan.jpg';
 import Romina from '../../assets/Romina.jpeg';
 import Florencia from '../../assets/Florencia.jpeg';
 import GrupoEmprendemia from '../../assets/boy.png'
