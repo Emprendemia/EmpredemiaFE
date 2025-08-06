@@ -84,7 +84,7 @@ export const WebinarSection = styled.div`
 `;
 
 export const WebinarTitle = styled.h1`
-  color: #E0E0E0;
+  color: ${theme.palette.primary.main};
   font-size: 2.5rem;
   margin-bottom: 40px;
 `;
@@ -100,7 +100,7 @@ export const WebinarCard = styled.section`
   width: 380px;
   border: 2px solid white;
   padding: 16px;
-  color: #E0E0E0;
+  color: ${theme.palette.primary.main};
 
   h2 {
     font-size: 18px;
