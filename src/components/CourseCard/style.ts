@@ -70,11 +70,11 @@ export const ViewButton = styled(Link)`
   color: ${theme.palette.info.main};
   text-align: center;
   padding: 10px 16px;
-  border-radius: 20px;
+  border-radius: 10px;
   font-weight: bold;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background 0.2s ease;
+  transition: background 0.3s ease;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
