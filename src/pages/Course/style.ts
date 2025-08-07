@@ -9,8 +9,8 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.div`
-  height: 500px;
   background-image: url(${cursosImg});
+  height: 500px;
   background-size: cover;
   background-position: center;
   background-blend-mode: darken;
