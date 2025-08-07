@@ -18,11 +18,11 @@ const Contact = () => {
   return (
     <Container>
       <Banner>
-        
+        <BannerTitle>CONTACTO</BannerTitle>
       </Banner>
 
       <MainContent>
-        <BannerTitle>Contacto</BannerTitle>
+        
         <IntroSection>
           <IntroText>
             ¡Tu voz es muy importante para nosotros!
@@ -34,7 +34,7 @@ const Contact = () => {
         </IntroSection>
 
         <FormRecuadro>
-          <FormTitle>Contactanos</FormTitle>
+         <FormTitle>Contactanos</FormTitle>
           <ContactForm>
             <InputGroup>
               <InputField type="text" id="nombre" name="nombre" placeholder="Nombre completo" />
@@ -45,7 +45,9 @@ const Contact = () => {
             <InputGroup>
               <TextAreaField id="mensaje" name="mensaje" placeholder="Mensaje" />
             </InputGroup>
-            <SubmitButton type="submit">Enviar</SubmitButton>
+            <InputGroup>
+              <SubmitButton type="submit">Enviar</SubmitButton>
+            </InputGroup>
           </ContactForm>
         </FormRecuadro>
       </MainContent>

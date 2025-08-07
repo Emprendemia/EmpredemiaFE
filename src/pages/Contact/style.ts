@@ -19,9 +19,10 @@ export const Banner = styled.header`
 `;
 
 export const BannerTitle = styled.h1`
-  box-shadow: 2px 3px 5px black;
-  color: ${theme.palette.primary.contrastText};
-  font-size: 60px;
+   color: white;
+   font-size: 5rem;
+   font-weight: bold;
+   margin: 0;
 `;
 
 export const MainContent = styled.main`
@@ -59,17 +60,20 @@ export const FormTitle = styled.h2`
 `;
 
 export const ContactForm = styled.form`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  
   gap: 20px;
   margin: 10px;
+  box-sizing: border-box;
 `;
 
 export const InputGroup = styled.div`
   width: 100%;
+  box-sizing: border-box;
 `;
 
 export const InputField = styled.input`
@@ -78,6 +82,9 @@ export const InputField = styled.input`
   border-radius: 10px;
   border: none;
   padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: inherit;
 `;
 
 export const TextAreaField = styled.textarea`
@@ -87,14 +94,28 @@ export const TextAreaField = styled.textarea`
   border: none;
   padding: 10px;
   resize: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: inherit;
 `;
 
 export const SubmitButton = styled.button`
-  width: 100%;
-  height: 40px;
-  color: ${theme.palette.secondary.main};
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
+  background-color: ${theme.palette.secondary.main};
+ color: ${theme.palette.primary.main};
+ width: 100%;
+ height: 40px;
+ padding: 0 10px; 
+ font-weight: bold;
+ border-radius: 10px;
+ border: none;
+ cursor: pointer;
+ font-size: 0.95rem;
+ text-align: center;
+ transition: background-color 0.3s;
+ box-sizing: border-box;
+ font-family: inherit;
+
+ &:hover {
+  background-color: #e0a728;
+ }
 `;

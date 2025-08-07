@@ -77,7 +77,7 @@ export const NavLink = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    opacity: 0.8;
+    color: #F4B535;
   }
 `;
 
@@ -91,6 +91,6 @@ export const NavButton = styled.button`
   transition: opacity 0.2s;
 
   &:hover {
-    opacity: 0.8;
+   color: #F4B535;
   }
 `;

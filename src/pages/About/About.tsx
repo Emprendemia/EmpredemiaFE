@@ -13,7 +13,7 @@ import {
 
 import Rodrigo from '../../assets/Rodrigo.jpeg';
 import Nayla from '../../assets/Nayla.jpeg';
-import Ivan from '../../assets/boy.png';
+import Ivan from '../../assets/Ivan.jpg';
 import Romina from '../../assets/Romina.jpeg';
 import Florencia from '../../assets/Florencia.jpeg';
 import GrupoEmprendemia from '../../assets/boy.png'
@@ -21,7 +21,7 @@ import GrupoEmprendemia from '../../assets/boy.png'
 
 const teamMembers = [
   { name: 'Rodrigo Olivarez', email: 'rodrigovolivarez@gmail.com', img: Rodrigo, linkedin: 'https://www.linkedin.com/in/rodrigoolivarez/' },
-  { name: 'Nayla Jimenez', email: 'Nay.g.jimenez97@gmail.com', img: Nayla, linkedin: 'https://www.linkedin.com/in/nayla-jimenez/' },
+  { name: 'Nayla Jimenez', email: 'jimenez.nayla1997@gmail.com', img: Nayla, linkedin: 'https://www.linkedin.com/in/nayla-jimenez/' },
   { name: 'Florencia Figueroa Pérez', email: 'florenciafigueroap@gmail.com', img: Florencia, linkedin: 'https://www.linkedin.com/in/florencia-figueroa-perez/' },
   { name: 'Romina Alvarez', email: 'rominarosaalvarez1213@gmail.com', img: Romina, linkedin: 'https://www.linkedin.com/in/romina-rosa-alvarez/' },
   { name: 'Ivan Ibazeta', email: 'ibazeta.ivan2001@gmail.com', img: Ivan, linkedin: 'https://www.linkedin.com/in/ivan-ibazeta/' }

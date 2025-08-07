@@ -70,12 +70,17 @@ export const CourseDescription = styled.h4`
 
 export const CourseButton = styled.button`
   background-color: ${theme.palette.secondary.main};
-  color: ${theme.palette.info.main};
+  color: ${theme.palette.primary.main};
   border: none;
-  border-radius: 6px;
+  border-radius:10px;
   padding: 10px 0;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+   &:hover {
+    background-color: #e0a728;
+  }
 `;
 
 export const WebinarSection = styled.div`
@@ -84,7 +89,7 @@ export const WebinarSection = styled.div`
 `;
 
 export const WebinarTitle = styled.h1`
-  color: #E0E0E0;
+  color: ${theme.palette.primary.main};
   font-size: 2.5rem;
   margin-bottom: 40px;
 `;
@@ -100,7 +105,7 @@ export const WebinarCard = styled.section`
   width: 380px;
   border: 2px solid white;
   padding: 16px;
-  color: #E0E0E0;
+  color: ${theme.palette.primary.main};
 
   h2 {
     font-size: 18px;

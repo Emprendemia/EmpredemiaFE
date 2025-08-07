@@ -111,44 +111,20 @@ export const ProgressBarFill = styled.div`
 
 
 export const ContinueButton = styled(Link)`
+  background-color: ${theme.palette.secondary.main};
+  color: ${theme.palette.primary.main};
   margin-top: 16px;
   display: inline-block;
-  background-color: ${theme.palette.background.paper};
-  color: ${theme.palette.primary.main};
   padding: 8px 20px;
-  font-weight: 600;
-  border-radius: 20px;
+  font-weight: bold;
+  border-radius: 10px;
   text-decoration: none;
   font-size: 0.95rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #e0a728;
   }
 `;
 
-export const RecentCoursesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  margin-top: 40px;
-`;
-
-export const DeleteButton = styled.button`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background: #f44336;
-  border: none;
-  color: white;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 2;
-`;
 
