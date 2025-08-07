@@ -114,12 +114,14 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   padding: 10px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  background-color: white;
+  outline: none;
+  transition: border 0.2s;
 
   &:focus {
-    border: 1px solid ${theme.palette.secondary.main} ;
+    border: 1px solid ${theme.palette.primary.main};
   }
 `;
 
