@@ -37,7 +37,7 @@ const CourseCategoryModal = ({ category, onClose }: Props) => {
             const data = await res.json();
             if (!Array.isArray(data)) throw new Error('Respuesta inesperada del servidor');
 
-            setCourses(data);
+            setCourses(data.filter((course: Course) => course.state === 'published'));
         } catch (err) {
             console.error('Error al obtener cursos por categoría:', err);
             setCourses([]); // Evita crash por `.slice` sobre undefined
