@@ -11,13 +11,14 @@ import {
   TeamImg
 } from './style';
 
+import { motion } from 'framer-motion';
+
 import Rodrigo from '../../assets/Rodrigo.jpeg';
 import Nayla from '../../assets/Nayla.jpeg';
 import Ivan from '../../assets/Ivan.jpg';
 import Romina from '../../assets/Romina.jpeg';
 import Florencia from '../../assets/Florencia.jpeg';
-import GrupoEmpredemia from '../../assets/boy.png'
-
+import GrupoEmpredemia from '../../assets/boy.png';
 
 const teamMembers = [
   { name: 'Rodrigo Olivarez', email: 'rodrigovolivarez@gmail.com', img: Rodrigo, linkedin: 'https://www.linkedin.com/in/rodrigoolivarez/' },
@@ -33,9 +34,15 @@ const About = () => {
       <AboutSection>
         <AboutText>
           <h2>Quienes somos</h2>
-          <p>Somos un equipo apasionado por el crecimiento personal y profesional. Nuestra misión es acompañar a emprendedores como vos en cada paso del camino, brindando herramientas prácticas, conocimientos actualizados y estrategias reales que te permitan convertir tus ideas en proyectos sostenibles y exitosos.</p>
-        <p>Creemos en el poder de la educación accesible, aplicada y transformadora. Creamos cursos diseñados para potenciar tus habilidades, ya sea que estés dando tus primeros pasos o quieras llevar tu emprendimiento al siguiente nivel.</p>
-        <p>No vendemos promesas mágicas: compartimos experiencia, contenido valioso y una comunidad que te apoya. Porque emprender no tiene por qué ser un camino solitario.</p>
+          <p>
+            Somos un equipo apasionado por el crecimiento personal y profesional. Nuestra misión es acompañar a emprendedores como vos en cada paso del camino, brindando herramientas prácticas, conocimientos actualizados y estrategias reales que te permitan convertir tus ideas en proyectos sostenibles y exitosos.
+          </p>
+          <p>
+            Creemos en el poder de la educación accesible, aplicada y transformadora. Creamos cursos diseñados para potenciar tus habilidades, ya sea que estés dando tus primeros pasos o quieras llevar tu emprendimiento al siguiente nivel.
+          </p>
+          <p>
+            No vendemos promesas mágicas: compartimos experiencia, contenido valioso y una comunidad que te apoya. Porque emprender no tiene por qué ser un camino solitario.
+          </p>
         </AboutText>
         <AboutImage>
           <img src={GrupoEmpredemia} alt="Grupo empredemia" />
@@ -60,16 +67,24 @@ const About = () => {
       <TeamSection>
         <h2>Nuestro equipo</h2>
         <TeamCards>
-          {teamMembers.map(({ name, email, img, linkedin }) => (
-            <TeamCard key={email}>
+          {teamMembers.map(({ name, email, img, linkedin }, index) => (
+            <motion.div
+              key={email}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <TeamCard>
                 <a href={linkedin} target="_blank" rel="noopener noreferrer">
-              <TeamImg src={img} alt={name} />
-              </a>
-              <TeamInfo>
-                <h3>{name.replace(' ', '\n')}</h3>
-                <p>{email}</p>
-              </TeamInfo>
-            </TeamCard>
+                  <TeamImg src={img} alt={name} />
+                </a>
+                <TeamInfo>
+                  <h3>{name.replace(' ', '\n')}</h3>
+                  <p>{email}</p>
+                </TeamInfo>
+              </TeamCard>
+            </motion.div>
           ))}
         </TeamCards>
       </TeamSection>

@@ -9,28 +9,26 @@ export const Container = styled.div`
   background-color: rgb(0, 62, 95);
 
   @media (max-width: 768px) {
-    align-items: stretch;
+    align-items: flex-start;
     height: 100dvh;
-    padding: 0;
+    padding: 20px 12px;
   }
 `;
-
 
 export const PanelWrapper = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1920px;
-  height: 100vh;
-  border-radius: 0;
+  max-width: 1200px;
+  height: 100%;
+  border-radius: 12px;
   overflow: hidden;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    height: 100%;
+    height: auto;
+    min-height: 100dvh;
   }
 `;
-
-
 
 export const LeftPanel = styled.div`
   width: 70%;
@@ -41,7 +39,9 @@ export const LeftPanel = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 20px;
+    padding: 24px 16px;
+    align-items: flex-start;
+    box-sizing: border-box;
   }
 `;
 
@@ -61,13 +61,12 @@ export const RightPanel = styled.div`
   }
 `;
 
-
 export const GirlImage = styled.img`
-  width: 120%;
-  max-width: 480px;
+  width: 100%;
+  max-width: 420px;
   position: absolute;
   bottom: 30%;
-  left: -45%;
+  left: -40%;
   object-fit: contain;
   z-index: 2;
 
@@ -75,12 +74,11 @@ export const GirlImage = styled.img`
     position: relative;
     width: 70%;
     max-width: 260px;
-    left: 0;
+    left: auto;
     bottom: 0;
     margin: 0 auto;
   }
 `;
-
 
 export const Form = styled.form`
   width: 90%;
@@ -97,15 +95,15 @@ export const Form = styled.form`
   }
 
   @media (max-width: 768px) {
+    width: 100%;
     max-width: 100%;
   }
 `;
 
-
 export const Title = styled.h2`
   font-weight: bold;
   margin-bottom: 10px;
-  color:${theme.palette.secondary.contrastText};
+  color: ${theme.palette.secondary.contrastText};
 `;
 
 export const Label = styled.label`
@@ -126,7 +124,6 @@ export const Input = styled.input`
   }
 `;
 
-
 export const Button = styled.button`
   display: flex;
   justify-content: center;
@@ -134,7 +131,7 @@ export const Button = styled.button`
   padding: 10px;
   border-radius: 20px;
   background-color: ${theme.palette.secondary.main};
-  color:${theme.palette.secondary.contrastText}
+  color: ${theme.palette.secondary.contrastText};
   border: none;
   font-weight: 500;
   cursor: pointer;
@@ -153,27 +150,3 @@ export const GoogleIcon = styled.img`
   width: 18px;
   height: 18px;
 `;
-
-/* export const Links = styled.div`
-  margin-top: 8px;
-  text-align: center;
-  font-size: 13px;
-
-  p {
-    margin: 4px 0;
-  }
-
-  a {
-    text-decoration: underline;
-    color: ${theme.palette.primary.main};
-    font-weight: 500;
-  }
-`;
-
-export const Socials = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 12px;
-`;
- */

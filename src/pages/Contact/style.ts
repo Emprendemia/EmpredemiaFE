@@ -16,13 +16,23 @@ export const Banner = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    height: 400px;
+    padding: 0 16px;
+  }
 `;
 
 export const BannerTitle = styled.h1`
-   color: white;
-   font-size: 5rem;
-   font-weight: bold;
-   margin: 0;
+  color: ${theme.palette.info.main};
+  font-size: 5rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export const MainContent = styled.main`
@@ -30,17 +40,27 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 16px;
 `;
 
 export const IntroSection = styled.div`
   width: 50%;
   margin: 40px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 24px 0;
+  }
 `;
 
 export const IntroText = styled.p`
-  color: black;
+  color: ${theme.palette.text.primary};
   font-size: 20px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export const FormRecuadro = styled.div`
@@ -52,11 +72,17 @@ export const FormRecuadro = styled.div`
   align-items: center;
   border-radius: 20px;
   margin-bottom: 30px;
+  padding: 24px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const FormTitle = styled.h2`
   color: ${theme.palette.primary.contrastText};
   padding: 10px;
+  text-align: center;
 `;
 
 export const ContactForm = styled.form`
@@ -65,7 +91,6 @@ export const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
   gap: 20px;
   margin: 10px;
   box-sizing: border-box;
@@ -101,21 +126,21 @@ export const TextAreaField = styled.textarea`
 
 export const SubmitButton = styled.button`
   background-color: ${theme.palette.secondary.main};
- color: ${theme.palette.primary.main};
- width: 100%;
- height: 40px;
- padding: 0 10px; 
- font-weight: bold;
- border-radius: 10px;
- border: none;
- cursor: pointer;
- font-size: 0.95rem;
- text-align: center;
- transition: background-color 0.3s;
- box-sizing: border-box;
- font-family: inherit;
+  color: ${theme.palette.primary.main};
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: background-color 0.3s;
+  box-sizing: border-box;
+  font-family: inherit;
 
- &:hover {
-  background-color: #e0a728;
- }
+  &:hover {
+    background-color: ${theme.palette.secondary.dark};
+  }
 `;

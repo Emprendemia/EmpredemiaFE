@@ -31,6 +31,19 @@ export const ContentWrapper = styled.div`
   }
 `;
 
+export const Greeting = styled.h2`
+  font-size: 3rem;
+  color: ${theme.palette.primary.main};
+  margin-bottom: 24px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    padding: 0 12px;
+  }
+`;
+
+
 export const Title = styled.h1`
   font-size: 3rem;
   color: ${theme.palette.primary.main};
@@ -129,10 +142,19 @@ export const ContinueButton = styled(Link)`
 
 export const RecentCoursesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   margin-top: 40px;
+  width: 100%;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-items: center; /* 🔹 Esto centra horizontalmente cada card en mobile */
+  }
 `;
+
 
 export const DeleteButton = styled.button`
   display:flex;
