@@ -25,6 +25,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 
 import boyImage from '../../assets/boy.png';
 import googleIcon from '../../assets/google.svg';
+import NavbarDummy from '../../components/NavbarDummy/NavbarDummy';
 
 interface RegisterFormData {
   firstName: string;
@@ -132,6 +133,7 @@ const Register = () => {
 
   return (
     <Container>
+      <NavbarDummy />
       <PanelWrapper>
         <LeftPanel>
           <BoyImage src={boyImage} alt="Chico con laptop" />

@@ -22,6 +22,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 
 import girlImage from '../../assets/girl.png';
 import googleIcon from '../../assets/google.svg';
+import NavbarDummy from '../../components/NavbarDummy/NavbarDummy';
 
 interface LoginFormData {
   email: string;
@@ -112,6 +113,7 @@ const Login = () => {
 
   return (
     <Container>
+      <NavbarDummy />
       <PanelWrapper>
         <LeftPanel
           as={motion.div}
