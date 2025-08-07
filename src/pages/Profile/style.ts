@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 60px auto;
   padding: 40px;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
   font-family: 'Inter', sans-serif;
   text-align: center;
