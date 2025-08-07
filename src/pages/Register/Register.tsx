@@ -187,17 +187,17 @@ const Register = () => {
 
             <Button type="submit">Registrate</Button>
 
-            <GoogleButton type="button" onClick={() => googleLogin()}>
-              <GoogleIcon src={googleIcon} alt="Google" />
-              Iniciar sesión con Google
-            </GoogleButton>
-
             <Button
               type="button"
               onClick={() => navigate('/login')}
             >
               Iniciar sesión
             </Button>
+
+             <GoogleButton type="button" onClick={() => googleLogin()}>
+              <GoogleIcon src={googleIcon} alt="Google" />
+              Iniciar sesión con Google
+            </GoogleButton>
           </Form>
         </RightPanel>
       </PanelWrapper>
