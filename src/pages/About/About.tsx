@@ -16,7 +16,7 @@ import Nayla from '../../assets/Nayla.jpeg';
 import Ivan from '../../assets/Ivan.jpg';
 import Romina from '../../assets/Romina.jpeg';
 import Florencia from '../../assets/Florencia.jpeg';
-import GrupoEmprendemia from '../../assets/boy.png'
+import GrupoEmpredemia from '../../assets/boy.png'
 
 
 const teamMembers = [
@@ -38,7 +38,7 @@ const About = () => {
         <p>No vendemos promesas mágicas: compartimos experiencia, contenido valioso y una comunidad que te apoya. Porque emprender no tiene por qué ser un camino solitario.</p>
         </AboutText>
         <AboutImage>
-          <img src={GrupoEmprendemia} alt="Grupo empredemia" />
+          <img src={GrupoEmpredemia} alt="Grupo empredemia" />
         </AboutImage>
       </AboutSection>
 

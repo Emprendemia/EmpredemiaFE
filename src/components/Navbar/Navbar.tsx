@@ -22,7 +22,7 @@ const Navbar = () => {
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <Logo>
                         <img src={logo} alt="Logo" />
-                        <span>Emprendemia Inc</span>
+                        <span>Empredemia Inc</span>
                     </Logo>
                 </Link>
                 <NavItems>

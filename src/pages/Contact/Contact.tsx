@@ -27,7 +27,7 @@ const Contact = () => {
           <IntroText>
             ¡Tu voz es muy importante para nosotros!
             <br />
-            En Emprendemia, valoramos tus ideas y comentarios. Ya sea que tengas una consulta sobre nuestros cursos, una sugerencia para hacer la plataforma más útil o si quieres conectar con el equipo detrás de este proyecto, estamos aquí para escucharte.
+            En Empredemia, valoramos tus ideas y comentarios. Ya sea que tengas una consulta sobre nuestros cursos, una sugerencia para hacer la plataforma más útil o si quieres conectar con el equipo detrás de este proyecto, estamos aquí para escucharte.
             <br />
             Completa el formulario de abajo y nos pondremos en contacto contigo lo antes posible.
           </IntroText>
