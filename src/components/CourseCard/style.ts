@@ -3,22 +3,33 @@ import { Link } from 'react-router-dom';
 import theme from '../../theme';
 
 export const CardWrapper = styled.div`
-  background-color: ${theme.palette.primary.main};
-  color: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   width: 280px;
+  background-color: ${theme.palette.primary.main};
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 `;
 
 export const Image = styled.img`
   width: 100%;
-  height: 160px;
+  height: 180px;
   object-fit: cover;
+  display: block;
+`;
+
+export const CardTop = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
 `;
 
 export const Info = styled.div`
@@ -26,18 +37,23 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: ${theme.palette.primary.main};
+  min-height: 180px;
 `;
 
 export const Title = styled.h3`
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: white;
+  margin: 0;
 `;
 
 export const Description = styled.p`
   font-size: 0.95rem;
-  color: #f0f0f0;
-  min-height: 60px;
+  color: #dddddd;
+  line-height: 1.4;
+  flex-grow: 1;
+  margin: 0;
 `;
 
 export const Footer = styled.div`
@@ -49,6 +65,9 @@ export const Footer = styled.div`
 export const Hours = styled.span`
   font-size: 0.85rem;
   color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 export const ViewButton = styled(Link)`
@@ -56,12 +75,12 @@ export const ViewButton = styled(Link)`
   background-color: ${theme.palette.secondary.main};
   color: ${theme.palette.info.main};
   text-align: center;
-  padding: 10px;
+  padding: 10px 16px;
   border-radius: 20px;
   font-weight: bold;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background 0.2s;
+  transition: background 0.2s ease-in-out;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
@@ -69,38 +88,52 @@ export const ViewButton = styled(Link)`
 `;
 
 export const MenuButton = styled.button`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
-  background: none;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.6);
   border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
-  &::before,
-  &::after,
   div {
-    content: '';
-    display: block;
-    height: 3px;
+    width: 16px;
+    height: 2px;
     background: white;
-    margin: 4px 0;
-    border-radius: 2px;
+    position: relative;
+  }
+
+  div::before,
+  div::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: white;
+    left: 0;
+  }
+
+  div::before {
+    top: -6px;
+  }
+
+  div::after {
+    top: 6px;
   }
 `;
 
-// Nuevo: menú desplegable
 export const DropdownMenu = styled.div`
   position: absolute;
   top: 44px;
-  right: 12px;
+  right: 0;
   background: ${theme.palette.background.default};
   border: 1px solid ${theme.palette.secondary.main};
   border-radius: 8px;
   padding: 8px;
   z-index: 10;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   button {
     display: block;
@@ -118,11 +151,4 @@ export const DropdownMenu = styled.div`
       background-color: ${theme.palette.secondary.light};
     }
   }
-`;
-
-export const CardTop = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
 `;

@@ -9,7 +9,7 @@ import {
     PageButton,
 } from './style';
 import CourseCard from '../CourseCard/CourseCard';
-import { Course } from '../../interface/interface';
+import { Course } from '../../interface/Interface';
 
 interface Props {
     category: string;

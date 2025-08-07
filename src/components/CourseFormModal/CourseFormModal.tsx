@@ -18,28 +18,7 @@ import {
 } from './style';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-
-interface Props {
-  onClose: () => void;
-  onSuccess: () => void;
-  defaultValues?: {
-    _id: string;
-    title: string;
-    description: string;
-    hours: number;
-    videoUrl: string;
-    category: string;
-    modules: {
-      title: string;
-      time: string;
-    }[];
-  };
-}
-
-interface Module {
-  title: string;
-  time: string;
-}
+import { Course } from '../../interface/Interface';
 
 interface FormData {
   title: string;
@@ -47,6 +26,18 @@ interface FormData {
   hours: string;
   videoUrl: string;
   category: string;
+  image?: string;
+}
+
+interface Module {
+  title: string;
+  time: string;
+}
+
+interface Props {
+  onClose: () => void;
+  onSuccess: () => void;
+  defaultValues?: Course;
 }
 
 const categories = [
@@ -68,17 +59,20 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
   } = useForm<FormData>({
     defaultValues: defaultValues
       ? {
-        title: defaultValues.title,
-        description: defaultValues.description,
-        hours: String(defaultValues.hours),
-        videoUrl: defaultValues.videoUrl,
-        category: defaultValues.category
-      }
+          title: defaultValues.title,
+          description: defaultValues.description,
+          hours: String(defaultValues.hours),
+          videoUrl: defaultValues.videoUrl,
+          category: defaultValues.category
+        }
       : {}
-  })
+  });
 
   const [success, setSuccess] = useState(false);
   const [modules, setModules] = useState<Module[]>([{ title: '', time: '' }]);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>(defaultValues?.image || '');
+  const [imageError, setImageError] = useState<string>('');
 
   useEffect(() => {
     if (defaultValues) {
@@ -89,8 +83,8 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
         videoUrl: defaultValues.videoUrl,
         category: defaultValues.category
       });
-      ;
       setModules(defaultValues.modules || [{ title: '', time: '' }]);
+      setImageUrl(defaultValues.image || '');
     }
   }, [defaultValues, reset]);
 
@@ -100,14 +94,8 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     setModules(updated);
   };
 
-  const addModule = () => {
-    setModules(prev => [...prev, { title: '', time: '' }]);
-  };
-
-  const removeModule = (index: number) => {
-  setModules(prev => prev.filter((_, i) => i !== index));
-};
-
+  const addModule = () => setModules(prev => [...prev, { title: '', time: '' }]);
+  const removeModule = (index: number) => setModules(prev => prev.filter((_, i) => i !== index));
 
   const formatTimeInput = (value: string) => {
     const digits = value.replace(/\D/g, '').slice(0, 6);
@@ -118,8 +106,64 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     return formatted;
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setImageError('El archivo debe ser una imagen');
+      return;
+    }
+
+    if (file.size > 1024 * 1024) {
+      setImageError('La imagen debe pesar menos de 1MB');
+      return;
+    }
+
+    setImageFile(file);
+    setImageError('');
+  };
+
+const uploadImage = async (): Promise<string | null> => {
+  if (!imageFile) {
+    console.warn('⚠ No se seleccionó imagen, se usará imageUrl existente o null');
+    return imageUrl || null;
+  }
+
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${import.meta.env.VITE_UPLOAD_URL}/upload`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    });
+
+    const resultText = await res.text();
+    console.log('⏬ Respuesta de /upload:', resultText);
+
+    if (!res.ok) throw new Error('Error al subir imagen');
+
+    const data = JSON.parse(resultText);
+    return data.imageUrl;
+  } catch (err) {
+    console.error('🛑 uploadImage error:', err);
+    setImageError('Error al subir la imagen');
+    return null;
+  }
+};
+
+
+
   const onSubmit = async (data: FormData) => {
     try {
+      const uploadedImageUrl = await uploadImage();
+      if (!uploadedImageUrl) return;
+
       const token = localStorage.getItem('token');
       const method = defaultValues ? 'PUT' : 'POST';
       const url = defaultValues
@@ -136,6 +180,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
           ...data,
           hours: parseFloat(data.hours),
           modules,
+          image: uploadedImageUrl,
           ...(defaultValues && { state: 'in_review' })
         })
       });
@@ -144,6 +189,8 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
 
       setSuccess(true);
       reset();
+      setImageFile(null);
+      setImageUrl('');
       onSuccess();
       onClose();
     } catch (err) {
@@ -188,6 +235,25 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
         <ModalInput {...register('videoUrl', { required: true })} />
         {errors.videoUrl && <ErrorText>Campo requerido</ErrorText>}
 
+        <ModalLabel>Imagen del curso</ModalLabel>
+        <ModalInput type="file" accept="image/*" onChange={handleImageChange} />
+        {imageError && <ErrorText>{imageError}</ErrorText>}
+
+        {imageFile && (
+          <img
+            src={URL.createObjectURL(imageFile)}
+            alt="Preview"
+            style={{ width: '100%', marginTop: '10px', borderRadius: '8px' }}
+          />
+        )}
+        {!imageFile && imageUrl && (
+          <img
+            src={imageUrl}
+            alt="Miniatura actual"
+            style={{ width: '100%', marginTop: '10px', borderRadius: '8px' }}
+          />
+        )}
+
         <ModalLabel>Módulos</ModalLabel>
         {modules.map((mod, idx) => (
           <ModuleRow key={idx}>
@@ -219,7 +285,6 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
             </DeleteModuleButton>
           </ModuleRow>
         ))}
-
 
         <AddModuleButton type="button" onClick={addModule}>+ Agregar módulo</AddModuleButton>
         <ModalButton type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</ModalButton>
