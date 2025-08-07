@@ -108,19 +108,18 @@ export const Title = styled.h2`
 
 export const Label = styled.label`
   font-size: 14px;
-  color: #111;
+  color: ${theme.palette.text.primary};
+  font-family: 'Inter', sans-serif;
 `;
 
 export const Input = styled.input`
-  padding: 10px 16px;
-  border-radius: 20px;
-  border: 2px solid ${theme.palette.primary.main};
-  background-color: white;
-  outline: none;
-  transition: border 0.2s;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
 
   &:focus {
-    border: 3px solid #002235;
+    border: 1px solid ${theme.palette.secondary.main} ;
   }
 `;
 
@@ -129,12 +128,19 @@ export const Button = styled.button`
   justify-content: center;
   margin-top: 12px;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: ${theme.palette.secondary.main};
   color: ${theme.palette.secondary.contrastText};
   border: none;
   font-weight: 500;
   cursor: pointer;
+   transition: background-color 0.3s;
+
+
+  &:hover {
+    background-color: #e0a728;
+  }
+
 `;
 
 export const GoogleButton = styled(Button)`
@@ -144,9 +150,15 @@ export const GoogleButton = styled(Button)`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: background-color 0.3s;
+
+   &:hover {
+    background-color: ${theme.palette.secondary.contrastText};
 `;
 
 export const GoogleIcon = styled.img`
   width: 18px;
   height: 18px;
+
+ 
 `;

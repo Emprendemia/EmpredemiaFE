@@ -142,10 +142,7 @@ const Login = () => {
 
             <Button type="submit">Acceder</Button>
 
-            <GoogleButton type="button" onClick={() => googleLogin()}>
-              <GoogleIcon src={googleIcon} alt="Google" />
-              Iniciar sesión con Google
-            </GoogleButton>
+            
 
             <Button
               type="button"
@@ -154,6 +151,11 @@ const Login = () => {
             >
               Registrate
             </Button>
+
+            <GoogleButton type="button" onClick={() => googleLogin()}>
+              <GoogleIcon src={googleIcon} alt="Google" />
+              Iniciar sesión con Google
+            </GoogleButton>
           </Form>
         </LeftPanel>
 
