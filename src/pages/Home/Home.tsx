@@ -12,8 +12,10 @@ import {
   ProgressBarBackground,
   ContinueButton,
   RecentCoursesGrid,
-  DeleteButton
+  DeleteButton,
+  Greeting
 } from './style';
+import { motion } from 'framer-motion';
 import heroImg from '../../assets/boy.png';
 import { Course } from '../../interface/Interface';
 import CourseCard from '../../components/CourseCard/CourseCard';
@@ -26,6 +28,8 @@ interface RecentCourse {
 
 const Home = () => {
   const [recentCourses, setRecentCourses] = useState<RecentCourse[]>([]);
+  const [userName, setUserName] = useState('');
+
 
   const fetchRecentCourses = async () => {
     try {
@@ -37,6 +41,20 @@ const Home = () => {
       setRecentCourses(data);
     } catch (err) {
       console.error('Error al obtener cursos recientes:', err);
+    }
+  };
+
+  const fetchUserInfo = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/profile`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      const firstName = data.fullname?.split(' ')[0];
+      setUserName(firstName);
+    } catch (err) {
+      console.error('Error al obtener datos del usuario:', err);
     }
   };
 
@@ -58,12 +76,15 @@ const Home = () => {
 
   useEffect(() => {
     fetchRecentCourses();
+    fetchUserInfo();
   }, []);
 
   const last = recentCourses[0];
 
   return (
     <Container>
+      {userName && <Greeting>Hola {userName}, ¡bienvenido/a a Empredemia!</Greeting>}
+
       <ContentWrapper>
         <div>
           <Title>Aprendé sin límites</Title>
@@ -93,12 +114,15 @@ const Home = () => {
       {recentCourses.length > 1 && (
         <RecentCoursesGrid>
           {recentCourses.slice(1).map(({ course, progress, lastTimestamp }) => (
-            <div key={course._id} style={{ position: 'relative' }}>
-              <CourseCard course={course} showState />
-              <DeleteButton onClick={() => handleDelete(course._id)}>✕</DeleteButton>
-            </div>
+            <CourseCard
+              key={course._id}
+              course={course}
+              showState
+              onDelete={() => handleDelete(course._id)}
+            />
           ))}
         </RecentCoursesGrid>
+
       )}
     </Container>
   );

@@ -6,18 +6,32 @@ export const Container = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   background-color: ${theme.palette.primary.contrastText};
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+  }
 `;
 
 export const Title = styled.h1`
   color: ${theme.palette.primary.main};
   font-size: 2.5rem;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    text-align: center;
+  }
 `;
 
 export const Description = styled.p`
   color: #333;
   font-size: 1.2rem;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    text-align: center;
+  }
 `;
 
 export const VideoWrapper = styled.div`
@@ -42,9 +56,16 @@ export const ModuleItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e8f1f4;
+  background-color: ${theme.palette.background.paper};
   padding: 12px 16px;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    text-align: center;
+  }
 `;
 
 export const ModuleButton = styled.button`
@@ -67,6 +88,7 @@ export const RestartButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s ease;
+  display: block;
 
   &:hover {
     background-color: #d32f2f;

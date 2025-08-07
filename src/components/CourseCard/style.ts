@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import theme from '../../theme';
 
 export const CardWrapper = styled.div`
-  width: 280px;
+  width: 100%;
+  max-width: 300px;
+  min-height: 440px;
   background-color: ${theme.palette.primary.main};
   border-radius: 12px;
   overflow: hidden;
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s;
 
@@ -20,25 +22,17 @@ export const CardWrapper = styled.div`
 
 export const Image = styled.img`
   width: 100%;
-  height: 180px;
+  height: 160px;
   object-fit: cover;
-  display: block;
-`;
-
-export const CardTop = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
 `;
 
 export const Info = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  flex: 1;
   background-color: ${theme.palette.primary.main};
-  min-height: 180px;
 `;
 
 export const Title = styled.h3`
@@ -50,9 +44,9 @@ export const Title = styled.h3`
 
 export const Description = styled.p`
   font-size: 0.95rem;
-  color: #dddddd;
-  line-height: 1.4;
+  color: #ddd;
   flex-grow: 1;
+  line-height: 1.4;
   margin: 0;
 `;
 
@@ -67,7 +61,7 @@ export const Hours = styled.span`
   color: #ccc;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 `;
 
 export const ViewButton = styled(Link)`
@@ -80,7 +74,7 @@ export const ViewButton = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background 0.2s ease-in-out;
+  transition: background 0.2s ease;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
@@ -145,10 +139,35 @@ export const DropdownMenu = styled.div`
     text-align: left;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: background 0.2s;
 
     &:hover {
       background-color: ${theme.palette.secondary.light};
     }
   }
+`;
+
+export const CardTop = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+`;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 24px;
+  height: 24px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
 `;

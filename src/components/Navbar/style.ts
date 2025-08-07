@@ -1,47 +1,38 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import theme from '../../theme';
 
 export const Container = styled.nav`
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
-  background-color: #002B3F;
-  color: white;
-  padding: 16px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-  }
+  z-index: 1000;
+  background-color: ${theme.palette.primary.dark};
+  color: ${theme.palette.primary.contrastText};
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `;
 
 export const InnerWrapper = styled.div`
   max-width: 1400px;
   width: 100%;
+  padding: 16px 24px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 12px;
+    padding: 16px;
   }
 `;
 
-
-export const Logo = styled.div`
+export const Logo = styled(Link)`
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
 
   img {
     width: 32px;
@@ -51,46 +42,68 @@ export const Logo = styled.div`
   span {
     font-size: 1.4rem;
     font-weight: bold;
-    color: white;
+    color: ${theme.palette.primary.contrastText};
   }
 `;
 
-export const NavItems = styled.div`
+export const HamburgerButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: ${theme.palette.primary.contrastText};
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+    z-index: 1001;
+  }
+`;
+
+interface NavItemsProps {
+  $open: boolean;
+}
+
+export const NavItems = styled.div<NavItemsProps>`
   display: flex;
   align-items: center;
   gap: 24px;
-  flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    background-color: ${theme.palette.primary.dark};
+    width: 100%;
+    padding: 20px 0;
+    display: ${({ $open }) => ($open ? 'flex' : 'none')};
+    gap: 16px;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 `;
 
 export const NavLink = styled(Link)`
-  color: white;
+  color: ${theme.palette.primary.contrastText};
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  transition: opacity 0.2s;
-  background: none;
-  border: none;
-  cursor: pointer;
 
   &:hover {
-    color: #F4B535;
+    color: ${theme.palette.secondary.main};
   }
 `;
 
 export const NavButton = styled.button`
-  color: white;
+  color: ${theme.palette.primary.contrastText};
   background: none;
   border: none;
   font-weight: 500;
   font-size: 1rem;
   cursor: pointer;
-  transition: opacity 0.2s;
 
   &:hover {
-   color: #F4B535;
+    color: ${theme.palette.secondary.main};
   }
 `;
