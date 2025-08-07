@@ -28,7 +28,7 @@ export const AboutText = styled.div`
   p {
     margin-bottom: 16px;
     line-height: 1.6;
-    color: ${theme.palette.text.primary}; // Color del texto
+    color: #333; // Color del texto
   }
 `;
 
@@ -57,13 +57,14 @@ export const PlatformSection = styled.section`
     
     li {
       margin-bottom: 10px;
+      color:#333;
     }
   }
 
   p {
     font-size: 1rem;
     line-height: 1.6;
-    color: ${theme.palette.text.primary}; // Color del texto
+    color: #333; // Color del texto
   }
 `;
 
