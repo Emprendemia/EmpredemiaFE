@@ -23,7 +23,6 @@ export const Description = styled.p`
 export const VideoWrapper = styled.div`
   width: 100%;
   aspect-ratio: 16/9;
-  margin-bottom: 30px;
 `;
 
 export const Iframe = styled.iframe`
@@ -56,4 +55,20 @@ export const ModuleButton = styled.button`
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
+`;
+
+export const RestartButton = styled.button`
+  margin: 16px auto;
+  padding: 10px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
 `;
