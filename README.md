@@ -1,7 +1,7 @@
-<H1>Emprendemia</H1>
+<H1>Empredemia</H1>
 
 ## Descripción del proyecto:
-Emprendemia es una plataforma web diseñada para capacitar a emprendedores. Nuestro objetivo es ofrecer cursos que abarcan desde la gestión financiera hasta la sistematización de negocios, ayudando a los emprendedores a formalizar y escalar sus proyectos. Detectamos una necesidad real en el mercado de herramientas accesibles para aquellos que inician su camino de manera informal y buscan crecer.
+Empredemia es una plataforma web diseñada para capacitar a emprendedores. Nuestro objetivo es ofrecer cursos que abarcan desde la gestión financiera hasta la sistematización de negocios, ayudando a los emprendedores a formalizar y escalar sus proyectos. Detectamos una necesidad real en el mercado de herramientas accesibles para aquellos que inician su camino de manera informal y buscan crecer.
 
 ## Funcionalidades Principales
 Nuestra plataforma está diseñada con una arquitectura de roles para ofrecer una experiencia segura y personalizada:
