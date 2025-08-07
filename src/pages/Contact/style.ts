@@ -8,27 +8,30 @@ export const Container = styled.div`
 
 export const Banner = styled.header`
   background-image: url(${contactBanner});
-  height: 700px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+  height: 500px;
   background-size: cover;
+  background-position: center;
+  background-blend-mode: darken;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-
+  background-attachment: scroll;
+  
+  
   @media (max-width: 768px) {
-    height: 400px;
+    height: 300px;
     padding: 0 16px;
+    text-align: center;
   }
 `;
 
 export const BannerTitle = styled.h1`
-  color: ${theme.palette.info.main};
+  color: ${theme.palette.info.contrastText};
   font-size: 5rem;
   font-weight: bold;
   margin: 0;
-  text-align: center;
+  
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
