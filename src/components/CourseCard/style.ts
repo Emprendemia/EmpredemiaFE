@@ -118,6 +118,7 @@ export const MenuButton = styled.button`
   }
 `;
 
+//Menu dsplegable profe
 export const DropdownMenu = styled.div`
   position: absolute;
   top: 44px;
@@ -153,6 +154,8 @@ export const CardTop = styled.div`
   z-index: 2;
 `;
 
+
+//boton borrar cruz roja
 export const DeleteButton = styled.button`
   position: absolute;
   top: 8px;
