@@ -123,7 +123,7 @@ export const ContinueButton = styled(Link)`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #e0a728;
+    background-color: ${theme.palette.secondary.main};
   }
 `;
 
