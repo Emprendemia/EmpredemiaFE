@@ -127,4 +127,29 @@ export const ContinueButton = styled(Link)`
   }
 `;
 
+export const RecentCoursesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+`;
+
+export const DeleteButton = styled.button`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #f44336;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 2;
+`;
+
 
