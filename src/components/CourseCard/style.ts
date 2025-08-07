@@ -12,6 +12,7 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const Image = styled.img`
@@ -65,4 +66,63 @@ export const ViewButton = styled(Link)`
   &:hover {
     background-color: ${theme.palette.secondary.dark};
   }
+`;
+
+export const MenuButton = styled.button`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &::before,
+  &::after,
+  div {
+    content: '';
+    display: block;
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+    border-radius: 2px;
+  }
+`;
+
+// Nuevo: menú desplegable
+export const DropdownMenu = styled.div`
+  position: absolute;
+  top: 44px;
+  right: 12px;
+  background: ${theme.palette.background.default};
+  border: 1px solid ${theme.palette.secondary.main};
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+  button {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    color: ${theme.palette.text.primary};
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: ${theme.palette.secondary.light};
+    }
+  }
+`;
+
+export const CardTop = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
 `;

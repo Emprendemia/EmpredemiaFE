@@ -10,7 +10,7 @@ import {
 } from './style';
 import CourseFormModal from '../../components/CourseFormModal/CourseFormModal';
 import CourseCard from '../../components/CourseCard/CourseCard';
-import { Course } from '../../interface/interface';
+import { Course } from '../../interface/Interface';
 
 const HomeTeacher = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -94,7 +94,13 @@ const HomeTeacher = () => {
             <CourseCard
               course={course}
               showState
+              onEdit={(c) => {
+                setEditData(c);
+                setShowModal(true);
+              }}
+              onUpdateState={handleUpdateState}
             />
+
 
 
           </div>
