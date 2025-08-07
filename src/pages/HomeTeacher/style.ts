@@ -5,16 +5,28 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 40px 20px;
+  margin-top: 80px;
   background-color: ${theme.palette.primary.contrastText};
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    padding: 24px 12px;
+  }
 `;
 
 export const Title = styled.h1`
   font-size: 2.5rem;
   color: ${theme.palette.primary.main};
   margin-bottom: 30px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
 `;
 
 export const CoursesWrapper = styled.div`
@@ -24,8 +36,11 @@ export const CoursesWrapper = styled.div`
   justify-content: center;
   width: 100%;
   max-width: 1400px;
-`;
 
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+`;
 
 export const CardTop = styled.div`
   display: flex;
@@ -92,6 +107,11 @@ export const CardContent = styled.div`
   flex: 1;
   display: flex;
   gap: 12px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 export const LeftContent = styled.div`
@@ -113,6 +133,11 @@ export const LeftContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 768px) {
+      height: auto;
+      padding: 8px 4px;
+    }
   }
 `;
 
@@ -127,8 +152,8 @@ export const StatusPill = styled.div<{ state: string }>`
     state === 'published'
       ? '#4CAF50'
       : state === 'in_review'
-        ? '#FFC107'
-        : '#F44336'};
+      ? '#FFC107'
+      : '#F44336'};
 `;
 
 export const RightContent = styled.div`
@@ -136,6 +161,12 @@ export const RightContent = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 `;
 
 export const Hours = styled.div`
@@ -145,6 +176,10 @@ export const Hours = styled.div`
   font-size: 0.9rem;
   color: #fff;
   margin-bottom: 8px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 export const ClockIcon = styled.span`
@@ -159,6 +194,11 @@ export const ViewButton = styled.button`
   border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+  }
 `;
 
 export const CreateButton = styled.button`
@@ -171,4 +211,14 @@ export const CreateButton = styled.button`
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: ${theme.palette.primary.dark};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 24px;
+  }
 `;
