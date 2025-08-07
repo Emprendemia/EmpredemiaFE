@@ -19,11 +19,14 @@ export const Container = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  max-width: 1400px;
+  max-width: 1100px;
+  padding: 40px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   gap: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
 
   @media (max-width: 1024px) {
     flex-direction: column-reverse;
@@ -36,6 +39,7 @@ export const Greeting = styled.h2`
   color: ${theme.palette.primary.main};
   margin-bottom: 24px;
   text-align: center;
+  
 
   @media (max-width: 768px) {
     font-size: 1.3rem;
@@ -74,7 +78,7 @@ export const Description = styled.p`
 
 export const HeroImage = styled.img`
   width: 40%;
-  max-width: 500px;
+  max-width: 400px;
   height: auto;
   object-fit: contain;
 

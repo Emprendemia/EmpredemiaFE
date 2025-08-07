@@ -16,7 +16,7 @@ import {
   Greeting
 } from './style';
 import { motion } from 'framer-motion';
-import heroImg from '../../assets/boy.png';
+import heroImg from '../../assets/hombre-home.png';
 import { Course } from '../../interface/Interface';
 import CourseCard from '../../components/CourseCard/CourseCard';
 
