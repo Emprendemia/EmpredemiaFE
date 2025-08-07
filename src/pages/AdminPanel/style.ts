@@ -83,7 +83,7 @@ export const Button = styled.button`
   color: ${theme.palette.primary.main};
   padding: 8px 16px;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -107,7 +107,7 @@ export const ExpandButton = styled(Button)`
 export const Pill = styled.span<{ state: string }>`
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 10px;
   font-weight: bold;
   font-size: 0.85rem;
   color: white;

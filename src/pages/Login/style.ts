@@ -140,7 +140,7 @@ export const Button = styled.button`
 
 
   &:hover {
-    background-color: #e0a728;
+    background-color: ${theme.palette.secondary.dark};
   }
 
 `;

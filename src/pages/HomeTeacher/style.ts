@@ -207,11 +207,11 @@ export const CreateButton = styled.button`
   color: #fff;
   padding: 14px 28px;
   border: none;
-  border-radius: 24px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.3s ease;
 
   &:hover {
     background-color: ${theme.palette.primary.dark};
