@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   color: initial;
-  background-color: initial;
+  background-color: #003e5fff;
 
   box-sizing: border-box;
 }
@@ -34,7 +34,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #FCFEFC;
+  background-color: #002b3f;
   color: #000;
 }
 
@@ -55,6 +55,6 @@ button {
 @media (prefers-color-scheme: light) {
   :root {
     color: initial;
-    background-color: initial;
+    background-color: #002b3f;
   }
 }

@@ -3,12 +3,23 @@ import contactBanner from '../../assets/mujer-contacto.jpg';
 import theme from '../../theme';
 
 export const Container = styled.div`
-  background-color: ${theme.palette.primary.contrastText};
+  background-color: ${theme.palette.background.default};
 `;
+
+/* export const Container = styled.div`
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: ${theme.palette.primary.contrastText};
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+  }
+`; */
 
 export const Banner = styled.header`
   background-image: url(${contactBanner});
-  height: 500px;
+  height: 600px;
   background-size: cover;
   background-position: center;
   background-blend-mode: darken;

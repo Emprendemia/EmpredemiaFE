@@ -1,17 +1,13 @@
 import styled from 'styled-components';
-import { Theme } from '@mui/material/styles';
 import theme from '../../theme';
 
-declare module 'styled-components' {
-  export interface DefaultTheme extends Theme {}
-}
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(0, 62, 95);
+  background-color: #003e5fff;
 
   @media (max-width: 768px) {
     align-items: flex-start;
@@ -20,13 +16,12 @@ export const Container = styled.div`
   }
 `;
 
-
 export const PanelWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 1200px;
   height: 100%;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -61,27 +56,25 @@ export const RightPanel = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 24px 16px;
+    padding: 32px 16px;
     align-items: flex-start;
-    overflow-y: auto;
-    box-sizing: border-box; // ✅ para que el padding no colapse
+    box-sizing: border-box;
   }
 `;
-
 
 export const BoyImage = styled.img`
   width: 100%;
   max-width: 420px;
   position: absolute;
-  bottom: 25%;
-  right: -40%;
+  bottom: 40%;
+  right: -50%;
   object-fit: contain;
   z-index: 2;
 
   @media (max-width: 768px) {
     position: relative;
     width: 70%;
-    max-width: 260px;
+    max-width: 240px;
     bottom: 0;
     margin: 0 auto;
     right: auto;
@@ -90,7 +83,7 @@ export const BoyImage = styled.img`
 
 export const Form = styled.form`
   width: 100%;
-  max-width: 520px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -113,6 +106,11 @@ export const Title = styled.h2`
   font-weight: bold;
   margin-bottom: 10px;
   color: ${theme.palette.primary.main};
+  font-size: 1.8rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -134,10 +132,21 @@ export const Input = styled.input`
   }
 `;
 
+/* export const ButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+
+`; */
+
 export const Button = styled.button`
   display: flex;
   justify-content: center;
   margin-top: 12px;
+ /*  width: 58%; */
   padding: 10px;
   border-radius: 10px;
   background-color: ${theme.palette.secondary.main};
@@ -146,7 +155,6 @@ export const Button = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s;
-
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
@@ -158,13 +166,14 @@ export const GoogleButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
+  border-radius: 10px;
   gap: 8px;
   color: ${theme.palette.primary.contrastText};
 
-  transition: background-color 0.3s;
-
-   &:hover {
+  &:hover {
     background-color: ${theme.palette.secondary.contrastText};
+  }
 `;
 
 export const GoogleIcon = styled.img`

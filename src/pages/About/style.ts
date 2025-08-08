@@ -1,16 +1,36 @@
 import styled from 'styled-components';
 import theme from '../../theme';
 
-export const Container = styled.div`
-  max-width: 1100px;
-  margin: 60px auto;
-  padding: 20px;
 
-  @media (max-width: 768px) {
-    padding: 16px;
-    margin: 40px 12px;
+
+export const Container = styled.div`
+  width: 100%;
+  min-height: 100dvh;
+  padding-top:60px;
+  background-color: ${theme.palette.background.default};
+  display: flex;
+  justify-content: center;
+
+  & > .inner {
+    width: 100%;
+    max-width: 1100px;
+    padding: 40px 24px;
+    box-sizing: border-box;
+
+    @media (max-width: 1024px) {
+      padding: 32px 20px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 24px 16px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 20px 12px;
+    }
   }
 `;
+
 
 export const AboutSection = styled.section`
   display: flex;
