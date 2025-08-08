@@ -176,7 +176,7 @@ const AdminPanel = () => {
                       <tbody>
                         {coursesMap[user._id].map((course) => (
                           <Tr key={course._id}>
-                            <Td style={{ cursor: 'pointer', color: '#0077cc' }}
+                            <Td style={{ cursor: 'pointer', color: '#0D4863' }}
                               onClick={() => navigate(`/course/${course._id}`)}>
                               {course.title}
                             </Td>

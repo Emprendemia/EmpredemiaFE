@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 60px auto;
   padding: 40px;
   background-color: ${theme.palette.background.paper};
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 
@@ -67,11 +67,12 @@ export const Td = styled.td`
 `;
 
 export const Select = styled.select`
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 6px 36px 6px 12px;;
+  border-radius: 5px;
   border: 1px solid #ccc;
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
+  
 
   @media (max-width: 768px) {
     width: 100%;
