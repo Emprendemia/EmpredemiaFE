@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import theme from '../../theme';
 
 export const Container = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  height: 80px;
   position: fixed;
   top: 0;
   left: 0;

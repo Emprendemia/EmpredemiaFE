@@ -8,10 +8,10 @@ export const Container = styled.div`
   height: 100vh;
   background-color: rgb(0, 62, 95);
 
-  @media (max-width: 768px) {
+    @media (max-width: 768px) {
     align-items: flex-start;
     height: 100dvh;
-    padding: 20px 12px;
+    padding: 0;
   }
 `;
 
@@ -20,7 +20,7 @@ export const PanelWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   height: 100%;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -39,7 +39,7 @@ export const LeftPanel = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 24px 16px;
+    padding: 32px 16px;
     align-items: flex-start;
     box-sizing: border-box;
   }
@@ -66,16 +66,16 @@ export const GirlImage = styled.img`
   max-width: 420px;
   position: absolute;
   bottom: 30%;
-  left: -40%;
+  left: -55%;
   object-fit: contain;
   z-index: 2;
 
   @media (max-width: 768px) {
     position: relative;
     width: 70%;
-    max-width: 260px;
-    left: auto;
+    max-width: 240px;
     bottom: 0;
+    left: auto;
     margin: 0 auto;
   }
 `;
@@ -103,7 +103,14 @@ export const Form = styled.form`
 export const Title = styled.h2`
   font-weight: bold;
   margin-bottom: 10px;
-  color: ${theme.palette.secondary.contrastText};
+  color: ${theme.palette.primary.main};
+  font-size: 2.5em;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -115,6 +122,8 @@ export const Label = styled.label`
 export const Input = styled.input`
   padding: 10px;
   border-radius: 10px;
+  width:100%;
+  max-width: 300px;
   border: 1px solid #ccc;
   background-color: white;
   outline: none;
@@ -125,24 +134,31 @@ export const Input = styled.input`
   }
 `;
 
+/* export const ButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`; */
+
 export const Button = styled.button`
   display: flex;
   justify-content: center;
   margin-top: 12px;
   padding: 10px;
   border-radius: 10px;
+  width: 100%;
+  max-width: 19em;
   background-color: ${theme.palette.secondary.main};
   color: ${theme.palette.secondary.contrastText};
   border: none;
   font-weight: 500;
   cursor: pointer;
-   transition: background-color 0.3s;
-
+  transition: background-color 0.3s;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
   }
-
 `;
 
 export const GoogleButton = styled(Button)`
@@ -151,16 +167,15 @@ export const GoogleButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
   gap: 8px;
-  transition: background-color 0.3s;
 
-   &:hover {
+  &:hover {
     background-color: ${theme.palette.secondary.contrastText};
+  }
 `;
 
 export const GoogleIcon = styled.img`
   width: 18px;
   height: 18px;
-
- 
 `;

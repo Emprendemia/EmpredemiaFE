@@ -10,7 +10,8 @@ import {
   Button,
   GoogleButton,
   GoogleIcon,
-  BoyImage
+  BoyImage,
+  /* ButtonBox */
 } from './style';
 
 import { useForm } from 'react-hook-form';
@@ -149,23 +150,32 @@ const Register = () => {
             <Title>¡Completa tus datos para registrarte!</Title>
 
             <Label>Nombre:</Label>
-            <Input {...register('firstName', { required: true })} />
-            {errors.firstName && <span>Campo requerido</span>}
+            <Input 
+            placeholder='Introduce tu nombre'
+            {...register('firstName', { required: true })} />
+            {errors.firstName && <span>Nombre requerido</span>}
 
             <Label>Apellido:</Label>
-            <Input {...register('lastName', { required: true })} />
-            {errors.lastName && <span>Campo requerido</span>}
+            <Input
+            placeholder='Introduce tu Apellido'
+            {...register('lastName', { required: true })} />
+            {errors.lastName && <span>Apellido requerido</span>}
 
             <Label>Email:</Label>
-            <Input type="email" {...register('email', { required: true })} />
-            {errors.email && <span>Campo requerido</span>}
+            <Input 
+            placeholder='Introduce tu correo electronico'
+            type="email" {...register('email', { required: true })} />
+            {errors.email && <span>Correo requerido</span>}
 
             <Label>Contraseña:</Label>
-            <Input type="password" {...register('password', { required: true })} />
-            {errors.password && <span>Campo requerido</span>}
+            <Input 
+            placeholder='Introduce tu contraseña'
+            type="password" {...register('password', { required: true })} />
+            {errors.password && <span>Contraseña requerido</span>}
 
             <Label>Confirmar contraseña:</Label>
             <Input
+              placeholder='Confirmá tu contraseña'
               type="password"
               {...register('confirmPassword', {
                 required: true,
@@ -174,30 +184,31 @@ const Register = () => {
               })}
             />
             {errors.confirmPassword && (
-              <span>{errors.confirmPassword.message || 'Campo requerido'}</span>
+              <span>{errors.confirmPassword.message || 'Confirmacion requerida'}</span>
             )}
+            {/* <ButtonBox> */}
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                style={{ margin: '12px 0', width: '19em' }}
+              />
 
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              style={{ margin: '12px 0' }}
-            />
+              {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
 
-            {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
+              <Button type="submit">Registrate</Button>
 
-            <Button type="submit">Registrate</Button>
+              <Button
+                type="button"
+                onClick={() => navigate('/login')}
+              >
+                Iniciar sesión
+              </Button>
 
-            <Button
-              type="button"
-              onClick={() => navigate('/login')}
-            >
-              Iniciar sesión
-            </Button>
-
-             <GoogleButton type="button" onClick={() => googleLogin()}>
-              <GoogleIcon src={googleIcon} alt="Google" />
-              Iniciar sesión con Google
-            </GoogleButton>
+              <GoogleButton type="button" onClick={() => googleLogin()}>
+                <GoogleIcon src={googleIcon} alt="Google" />
+                Iniciar sesión con Google
+              </GoogleButton>
+            {/* </ButtonBox> */}
           </Form>
         </RightPanel>
       </PanelWrapper>

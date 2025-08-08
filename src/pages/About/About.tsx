@@ -8,7 +8,7 @@ import {
   TeamCards,
   TeamCard,
   TeamInfo,
-  TeamImg
+  TeamImg,
 } from './style';
 
 import { motion } from 'framer-motion';
@@ -30,7 +30,10 @@ const teamMembers = [
 
 const About = () => {
   return (
+   
     <Container>
+      <div className="inner">
+
       <AboutSection>
         <AboutText>
           <h2>Quienes somos</h2>
@@ -88,7 +91,9 @@ const About = () => {
           ))}
         </TeamCards>
       </TeamSection>
+      </div>
     </Container>
+    
   );
 };
 

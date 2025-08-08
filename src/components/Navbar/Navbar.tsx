@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Container,
   InnerWrapper,
@@ -14,6 +14,7 @@ import logo from '../../assets/Logo-claro.png';
 const Navbar = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null); // incluye todo
   const role = localStorage.getItem('role');
 
   const handleLogout = () => {
@@ -22,9 +23,28 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  // Detectar click fuera del wrapper
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        window.innerWidth <= 768 &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <Container>
-      <InnerWrapper>
+      <InnerWrapper ref={wrapperRef}>
         <Logo to="/home">
           <img src={logo} alt="Logo" />
           <span>Empredemia Inc</span>

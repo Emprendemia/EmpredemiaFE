@@ -10,7 +10,8 @@ import {
   Button,
   GoogleButton,
   GoogleIcon,
-  GirlImage
+  GirlImage,
+/*   ButtonBox */
 } from './style';
 
 import { useForm } from 'react-hook-form';
@@ -75,40 +76,40 @@ const Login = () => {
   };
 
   const googleLogin = useGoogleLogin({
-  onSuccess: async (tokenResponse) => {
-    try {
-      // Pedir el id_token usando el endpoint de Google
-      const resToken = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-        headers: {
-          Authorization: `Bearer ${tokenResponse.access_token}`
-        }
-      });
+    onSuccess: async (tokenResponse) => {
+      try {
+        // Pedir el id_token usando el endpoint de Google
+        const resToken = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.access_token}`
+          }
+        });
 
-      const googleUser = await resToken.json();
+        const googleUser = await resToken.json();
 
-      // Ahora enviás al backend el tokenResponse.access_token como idToken
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/google`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: tokenResponse.access_token }) // esto lo procesás en el backend
-      });
+        // Ahora enviás al backend el tokenResponse.access_token como idToken
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: tokenResponse.access_token }) // esto lo procesás en el backend
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (!data.token || !data.role) throw new Error('Token o rol inválido');
+        if (!data.token || !data.role) throw new Error('Token o rol inválido');
 
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('role', data.role);
-      navigate(data.role === 'teacher' ? '/teacher' : '/home');
-    } catch (err) {
-      console.error('Error al iniciar sesión con Google:', err);
-    }
-  },
-  onError: () => {
-    console.log('Login con Google falló');
-  },
-  flow: 'implicit'
-});
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
+        navigate(data.role === 'teacher' ? '/teacher' : '/home');
+      } catch (err) {
+        console.error('Error al iniciar sesión con Google:', err);
+      }
+    },
+    onError: () => {
+      console.log('Login con Google falló');
+    },
+    flow: 'implicit'
+  });
 
 
   return (
@@ -125,37 +126,42 @@ const Login = () => {
             <Title>¡Hola de nuevo!</Title>
 
             <Label>Email:</Label>
-            <Input {...register('email', { required: true })} />
+            <Input 
+            placeholder='Correo electronico'
+            {...register('email', { required: true })} />
             {errors.email && <span>Campo requerido</span>}
 
             <Label>Contraseña:</Label>
-            <Input type="password" {...register('password', { required: true })} />
+            <Input 
+            placeholder='Introduce tu contraseña'
+            type="password" {...register('password', { required: true })} />
             {errors.password && <span>Campo requerido</span>}
+          {/*   <ButtonBox> */}
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                style={{ margin: '12px 0', width: '19em' }}
+              />
 
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              style={{ margin: '12px 0' }}
-            />
+              {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
 
-            {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
+              <Button type="submit">Acceder</Button>
 
-            <Button type="submit">Acceder</Button>
 
-            
 
-            <Button
-              type="button"
-              onClick={() => navigate('/register')}
+              <Button
+                type="button"
+                onClick={() => navigate('/register')}
 
-            >
-              Registrate
-            </Button>
+              >
+                Registrate
+              </Button>
 
-            <GoogleButton type="button" onClick={() => googleLogin()}>
-              <GoogleIcon src={googleIcon} alt="Google" />
-              Iniciar sesión con Google
-            </GoogleButton>
+              <GoogleButton type="button" onClick={() => googleLogin()}>
+                <GoogleIcon src={googleIcon} alt="Google" />
+                Iniciar sesión con Google
+              </GoogleButton>
+            {/* </ButtonBox> */}
           </Form>
         </LeftPanel>
 
