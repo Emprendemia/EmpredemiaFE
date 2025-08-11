@@ -11,12 +11,15 @@ import {
   GoogleButton,
   GoogleIcon,
   GirlImage,
-/*   ButtonBox */
+  /*   ButtonBox */
 } from './style';
 
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import ReCAPTCHA from 'react-google-recaptcha';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -34,6 +37,10 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [serverError, setServerError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRedirectByRole = (role: string) => {
@@ -47,9 +54,13 @@ const Login = () => {
   const onSubmit = async (data: LoginFormData) => {
     const token = recaptchaRef.current?.getValue();
     if (!token) {
-      alert('Por favor completá el reCAPTCHA');
+      setServerError('Por favor completá el reCAPTCHA');
+      setSnackbarOpen(true);
       return;
     }
+
+    setLoading(true);
+    setServerError('');
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
@@ -72,13 +83,16 @@ const Login = () => {
       recaptchaRef.current?.reset();
     } catch (error: any) {
       setServerError(error.message);
+      setSnackbarOpen(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
       try {
-        // Pedir el id_token usando el endpoint de Google
         const resToken = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: {
             Authorization: `Bearer ${tokenResponse.access_token}`
@@ -87,11 +101,10 @@ const Login = () => {
 
         const googleUser = await resToken.json();
 
-        // Ahora enviás al backend el tokenResponse.access_token como idToken
         const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: tokenResponse.access_token }) // esto lo procesás en el backend
+          body: JSON.stringify({ token: tokenResponse.access_token })
         });
 
         const data = await res.json();
@@ -103,13 +116,19 @@ const Login = () => {
         navigate(data.role === 'teacher' ? '/teacher' : '/home');
       } catch (err) {
         console.error('Error al iniciar sesión con Google:', err);
+        setServerError('Error al iniciar sesión con Google');
+        setSnackbarOpen(true);
+      } finally {
+        setGoogleLoading(false);
       }
     },
     onError: () => {
-      console.log('Login con Google falló');
+      setServerError('El login con Google falló');
+      setSnackbarOpen(true);
     },
     flow: 'implicit'
   });
+
 
 
   return (
@@ -126,41 +145,44 @@ const Login = () => {
             <Title>¡Hola de nuevo!</Title>
 
             <Label>Email:</Label>
-            <Input 
-            placeholder='Correo electronico'
-            {...register('email', { required: true })} />
+            <Input
+              placeholder='Correo electronico'
+              {...register('email', { required: true })} />
             {errors.email && <span>Campo requerido</span>}
 
             <Label>Contraseña:</Label>
-            <Input 
-            placeholder='Introduce tu contraseña'
-            type="password" {...register('password', { required: true })} />
+            <Input
+              placeholder='Introduce tu contraseña'
+              type="password" {...register('password', { required: true })} />
             {errors.password && <span>Campo requerido</span>}
-          {/*   <ButtonBox> */}
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-                style={{ margin: '12px 0', width: '19em' }}
-              />
+            {/*   <ButtonBox> */}
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+              style={{ margin: '12px 0', width: '19em' }}
+            />
 
-              {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
+            {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
 
-              <Button type="submit">Acceder</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? <CircularProgress size={22} color="inherit" /> : 'Acceder'}
+            </Button>
 
 
 
-              <Button
-                type="button"
-                onClick={() => navigate('/register')}
 
-              >
-                Registrate
-              </Button>
+            <Button
+              type="button"
+              onClick={() => navigate('/register')}
 
-              <GoogleButton type="button" onClick={() => googleLogin()}>
-                <GoogleIcon src={googleIcon} alt="Google" />
-                Iniciar sesión con Google
-              </GoogleButton>
+            >
+              Registrate
+            </Button>
+
+            <GoogleButton type="button" onClick={() => googleLogin()}>
+              <GoogleIcon src={googleIcon} alt="Google" />
+              Iniciar sesión con Google
+            </GoogleButton>
             {/* </ButtonBox> */}
           </Form>
         </LeftPanel>
@@ -169,6 +191,21 @@ const Login = () => {
           <GirlImage src={girlImage} alt="Chica usando celular" />
         </RightPanel>
       </PanelWrapper>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity="error"
+          variant="filled"
+        >
+          {serverError}
+        </Alert>
+      </Snackbar>
+
     </Container>
   );
 };
