@@ -25,9 +25,9 @@ import pack from '../../assets/fast-delivery_12395144.png';
 import envios from '../../assets/truck_7032242.png';
 import mentalidad from '../../assets/light-bulb_4898382.png';
 import atencion from '../../assets/information_2707074.png';
-import webinar1 from '../../assets/agencia-joven-adulto-profesion-destaco-negro.jpg';
-import webinar2 from '../../assets/mujer-asiatica-trabajando-traves-del-papeleo.jpg';
-import webinar3 from '../../assets/dos-repartidoras-cooperando-mientras-revisan-los-datos-de-los-paquetes-en-la-oficina.jpg';
+import webinar1 from '../../assets/hombre-frustrado.jpg';
+import webinar2 from '../../assets/mujer-calculadora.webp';
+import webinar3 from '../../assets/repartidores-paquete.jpg';
 
 const categories = [
   { name: 'Redes sociales y publicidad', img: redes, desc: 'Desde crear contenido atractivo hasta usar herramientas de publicidad.' },

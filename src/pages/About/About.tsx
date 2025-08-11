@@ -18,7 +18,7 @@ import Nayla from '../../assets/Nayla.jpeg';
 import Ivan from '../../assets/Ivan.jpg';
 import Romina from '../../assets/Romina.jpeg';
 import Florencia from '../../assets/Florencia.jpeg';
-import GrupoEmpredemia from '../../assets/boy.png';
+import GrupoEmpredemia from '../../assets/logo-oscuro.svg';
 
 const teamMembers = [
   { name: 'Rodrigo Olivarez', email: 'rodrigovolivarez@gmail.com', img: Rodrigo, linkedin: 'https://www.linkedin.com/in/rodrigoolivarez/' },

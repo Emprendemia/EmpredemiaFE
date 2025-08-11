@@ -73,9 +73,11 @@ export const AboutText = styled.div`
 
 export const AboutImage = styled.div`
   flex: 1;
+  
+  
 
   img {
-    max-width: 100%;
+    max-width: 45vh;
     border-radius: 12px;
   }
 `;

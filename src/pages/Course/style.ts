@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import cursosImg from '../../assets/comprador-personal-en-la-oficina-con-el-cliente.jpg';
+import cursosImg from '../../assets/dos-mujeres-PC.jpg';
 import theme from '../../theme';
+
 
 export const Container = styled.div`
   background-color: ${theme.palette.primary.contrastText};
