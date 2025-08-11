@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   color: initial;
-  background-color: #003e5fff;
+  background-color: #0D4863;
 
   box-sizing: border-box;
 }
@@ -58,3 +58,11 @@ button {
     background-color: #002b3f;
   }
 }
+
+.MuiCircularProgress-colorPrimary {
+    color: #0D4863 !important;
+}
+.MuiCircularProgress-colorSecondary {
+    color: #fcfefc !important;
+}
+

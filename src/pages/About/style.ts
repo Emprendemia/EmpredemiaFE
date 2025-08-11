@@ -150,30 +150,28 @@ export const TeamCard = styled.div`
   border-radius: 20px;
   padding: 20px;
   width: 280px;
+  height: 400px;
   color: ${theme.palette.primary.contrastText};
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
 
   @media (max-width: 480px) {
     width: 100%;
+    height: auto;
     padding: 16px;
   }
-
-  img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-
-    @media (max-width: 480px) {
-      width: 140px;
-      height: 140px;
-    }
-  }
 `;
+
 
 export const TeamInfo = styled.div`
   h3 {
@@ -203,8 +201,8 @@ export const TeamImg = styled.img`
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px;
-  cursor: pointer;
+  margin-top: 30px;
+  display: block;
 
   @media (max-width: 480px) {
     width: 140px;

@@ -17,7 +17,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import ReCAPTCHA from 'react-google-recaptcha';
-import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useRef, useState } from 'react';
@@ -27,6 +27,8 @@ import { useGoogleLogin } from '@react-oauth/google';
 import girlImage from '../../assets/girl.png';
 import googleIcon from '../../assets/google.svg';
 import NavbarDummy from '../../components/NavbarDummy/NavbarDummy';
+import theme from '../../theme';
+import { Box, CircularProgress } from '@mui/material';
 
 interface LoginFormData {
   email: string;
@@ -40,8 +42,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-
   const navigate = useNavigate();
+
 
   const handleRedirectByRole = (role: string) => {
     if (role === 'teacher') {
@@ -164,25 +166,35 @@ const Login = () => {
 
             {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
 
+           {/*  <Button onClick={() => setGoogleLoading(true)}>Test </Button> */}
+
             <Button type="submit" disabled={loading}>
-              {loading ? <CircularProgress size={22} color="inherit" /> : 'Acceder'}
+              {loading ? (
+
+                <CircularProgress size={20} sx={{
+                }} />
+
+              ) : (
+                'Acceder'
+              )}
             </Button>
-
-
-
-
             <Button
               type="button"
               onClick={() => navigate('/register')}
-
             >
               Registrate
             </Button>
-
-            <GoogleButton type="button" onClick={() => googleLogin()}>
-              <GoogleIcon src={googleIcon} alt="Google" />
-              Iniciar sesión con Google
+            <GoogleButton type="button" onClick={() => googleLogin()} disabled={googleLoading}>
+              {googleLoading ? (
+                <CircularProgress size={20} color="secondary" />
+              ) : (
+                <>
+                  <GoogleIcon src={googleIcon} alt="Google" />
+                  Iniciar sesión con Google
+                </>
+              )}
             </GoogleButton>
+
             {/* </ButtonBox> */}
           </Form>
         </LeftPanel>

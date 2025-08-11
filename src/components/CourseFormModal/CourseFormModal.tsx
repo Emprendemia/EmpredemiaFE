@@ -73,6 +73,7 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(defaultValues?.image || '');
   const [imageError, setImageError] = useState<string>('');
+  const [moduleError, setModuleError] = useState('');
 
   useEffect(() => {
     if (defaultValues) {
@@ -106,6 +107,17 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     return formatted;
   };
 
+  const isValidTimeFormat = (time: string): boolean => {
+    const parts = time.split(':');
+    if (parts.length !== 3) return false;
+
+    const [hh, mm, ss] = parts.map(Number);
+    if (isNaN(hh) || isNaN(mm) || isNaN(ss)) return false;
+    if (mm > 59 || ss > 59 || hh < 0 || mm < 0 || ss < 0) return false;
+
+    return true;
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -124,42 +136,48 @@ const CourseFormModal = ({ onClose, onSuccess, defaultValues }: Props) => {
     setImageError('');
   };
 
-const uploadImage = async (): Promise<string | null> => {
-  if (!imageFile) {
-    console.warn('⚠ No se seleccionó imagen, se usará imageUrl existente o null');
-    return imageUrl || null;
-  }
+  const uploadImage = async (): Promise<string | null> => {
+    if (!imageFile) {
+      console.warn('⚠ No se seleccionó imagen, se usará imageUrl existente o null');
+      return imageUrl || null;
+    }
 
-  const formData = new FormData();
-  formData.append('image', imageFile);
+    const formData = new FormData();
+    formData.append('image', imageFile);
 
-  try {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${import.meta.env.VITE_UPLOAD_URL}/upload`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData
-    });
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${import.meta.env.VITE_UPLOAD_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      });
 
-    const resultText = await res.text();
-    console.log('⏬ Respuesta de /upload:', resultText);
+      const resultText = await res.text();
+      console.log('⏬ Respuesta de /upload:', resultText);
 
-    if (!res.ok) throw new Error('Error al subir imagen');
+      if (!res.ok) throw new Error('Error al subir imagen');
 
-    const data = JSON.parse(resultText);
-    return data.imageUrl;
-  } catch (err) {
-    console.error('🛑 uploadImage error:', err);
-    setImageError('Error al subir la imagen');
-    return null;
-  }
-};
-
-
+      const data = JSON.parse(resultText);
+      return data.imageUrl;
+    } catch (err) {
+      console.error('🛑 uploadImage error:', err);
+      setImageError('Error al subir la imagen');
+      return null;
+    }
+  };
 
   const onSubmit = async (data: FormData) => {
+    for (let i = 0; i < modules.length; i++) {
+      if (!modules[i].title.trim() || !isValidTimeFormat(modules[i].time)) {
+        setModuleError(`El módulo ${i + 1} es erroneo, formato de tiempo INVALIDO o falta de datos`);
+        return;
+      }
+    }
+    setModuleError('');
+
     try {
       const uploadedImageUrl = await uploadImage();
       if (!uploadedImageUrl) return;
@@ -285,6 +303,7 @@ const uploadImage = async (): Promise<string | null> => {
             </DeleteModuleButton>
           </ModuleRow>
         ))}
+        {moduleError && <ErrorText>{moduleError}</ErrorText>}
 
         <AddModuleButton type="button" onClick={addModule}>+ Agregar módulo</AddModuleButton>
         <ModalButton type="submit">{defaultValues ? 'Guardar cambios' : 'Crear curso'}</ModalButton>

@@ -23,7 +23,7 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // Detectar click fuera del wrapper
+  // Detectar el click y cerrarlo cuando se apreta fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -42,10 +42,17 @@ const Navbar = () => {
     };
   }, []);
 
+  //cerrar el menu cuando se clickea un Navlink 
+    const handleNavigate = () => {
+    if (window.innerWidth <= 768) {
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <Container>
       <InnerWrapper ref={wrapperRef}>
-        <Logo to="/home">
+        <Logo to="/home" onClick={handleNavigate}>
           <img src={logo} alt="Logo" />
           <span>Empredemia Inc</span>
         </Logo>
@@ -55,13 +62,17 @@ const Navbar = () => {
         </HamburgerButton>
 
         <NavItems $open={menuOpen}>
-          <NavLink to="/home">Home</NavLink>
-          {(role === 'teacher' || role === 'admin') && <NavLink to="/teacher">Profesor</NavLink>}
-          {role === 'admin' && <NavLink to="/administrar">Administrar</NavLink>}
-          <NavLink to="/course">Cursos</NavLink>
-          <NavLink to="/profile">Perfil</NavLink>
-          <NavLink to="/contact">Contacto</NavLink>
-          <NavLink to="/about">Sobre Nosotros</NavLink>
+          <NavLink to="/home" onClick={handleNavigate}>Home</NavLink>
+          {(role === 'teacher' || role === 'admin') && (
+            <NavLink to="/teacher" onClick={handleNavigate}>Profesor</NavLink>
+          )}
+          {role === 'admin' && (
+            <NavLink to="/administrar" onClick={handleNavigate}>Administrar</NavLink>
+          )}
+          <NavLink to="/course" onClick={handleNavigate}>Cursos</NavLink>
+          <NavLink to="/profile" onClick={handleNavigate}>Perfil</NavLink>
+          <NavLink to="/contact" onClick={handleNavigate}>Contacto</NavLink>
+          <NavLink to="/about" onClick={handleNavigate}>Sobre Nosotros</NavLink>
           <NavButton onClick={handleLogout}>Salir</NavButton>
         </NavItems>
       </InnerWrapper>

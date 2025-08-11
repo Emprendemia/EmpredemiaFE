@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #003e5fff;
+  background-color: #0D4863;
 
   @media (max-width: 768px) {
     align-items: flex-start;
@@ -19,8 +19,9 @@ export const Container = styled.div`
 export const PanelWrapper = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100em;
   height: 100%;
+  
   /* border-radius: 12px; */
   overflow: hidden;
 
@@ -86,7 +87,7 @@ export const Form = styled.form`
   max-width: 350px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
   color: ${theme.palette.primary.main};
 
   span {
