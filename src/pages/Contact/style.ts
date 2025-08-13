@@ -9,6 +9,7 @@ export const Container = styled.div`
   align-items: center;
   flex: 1;
   min-height: 0;
+  border-radius:12px;
 `;
 
 export const Banner = styled.header`
@@ -21,6 +22,7 @@ export const Banner = styled.header`
   height: 400px;
   display: flex;
   justify-content: center;
+  border-radius:10px 10px 0px 0px;
   align-items: center;
 
   @media (max-width: 768px) {

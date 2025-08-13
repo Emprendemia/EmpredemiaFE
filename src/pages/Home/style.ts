@@ -11,7 +11,7 @@ export const Container = styled.div`
   border-radius: 12px;
   flex: 1;
   min-height: 0;
-  padding: 24px 20px;
+  padding: 80px 20px;
 
   @media (max-width: 768px) {
     padding: 20px 16px;
@@ -39,7 +39,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Greeting = styled.h2`
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: ${theme.palette.primary.main};
   margin-bottom: 24px;
   text-align: center;
@@ -53,7 +53,7 @@ export const Greeting = styled.h2`
 export const Title = styled.h1`
   font-size: 3rem;
   color: ${theme.palette.primary.main};
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
   @media (max-width: 768px) {
     font-size: 2.2rem;
@@ -64,11 +64,11 @@ export const Subtitle = styled.h2`
   font-size: 1.8rem;
   color: #003e5f;
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 `;
 
 export const Description = styled.p`
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #333;
   max-width: 600px;
 

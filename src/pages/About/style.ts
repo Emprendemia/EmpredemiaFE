@@ -8,6 +8,7 @@ export const Container = styled.div`
   justify-content: center;
   flex: 1;          
   min-height: 0;
+  border-radius: 12px;
 
   & > .inner {
     width: 100%;
@@ -27,7 +28,6 @@ export const AboutSection = styled.section`
   align-items: center;
   column-gap: 48px;
   row-gap: 24px;
-  margin-bottom: 60px;
 
   @media (max-width: 1024px) {
     column-gap: 32px;
@@ -79,7 +79,6 @@ export const AboutImage = styled.div`
 `;
 
 export const PlatformSection = styled.section`
-  margin-bottom: 60px;
   color: ${theme.palette.primary.main};
 
   h3 {
