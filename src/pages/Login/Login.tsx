@@ -131,94 +131,93 @@ const Login = () => {
     flow: 'implicit'
   });
 
-
-
   return (
-    <Container>
+    <>
       <NavbarDummy />
-      <PanelWrapper>
-        <LeftPanel
-          as={motion.div}
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Title>¡Hola de nuevo!</Title>
+      <Container>
+        <PanelWrapper>
+          <LeftPanel
+            as={motion.div}
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Title>¡Hola de nuevo!</Title>
 
-            <Label>Email:</Label>
-            <Input
-              placeholder='Correo electronico'
-              {...register('email', { required: true })} />
-            {errors.email && <span>Campo requerido</span>}
+              <Label>Email:</Label>
+              <Input
+                placeholder='Correo electronico'
+                {...register('email', { required: true })} />
+              {errors.email && <span>Campo requerido</span>}
 
-            <Label>Contraseña:</Label>
-            <Input
-              placeholder='Introduce tu contraseña'
-              type="password" {...register('password', { required: true })} />
-            {errors.password && <span>Campo requerido</span>}
-            {/*   <ButtonBox> */}
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              style={{ margin: '12px 0', width: '19em' }}
-            />
+              <Label>Contraseña:</Label>
+              <Input
+                placeholder='Introduce tu contraseña'
+                type="password" {...register('password', { required: true })} />
+              {errors.password && <span>Campo requerido</span>}
+              {/*   <ButtonBox> */}
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                style={{ margin: '12px 0', width: '19em' }}
+              />
 
-            {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
+              {serverError && <span style={{ color: 'red' }}>{serverError}</span>}
 
-           {/*  <Button onClick={() => setGoogleLoading(true)}>Test </Button> */}
+              {/*  <Button onClick={() => setGoogleLoading(true)}>Test </Button> */}
 
-            <Button type="submit" disabled={loading}>
-              {loading ? (
+              <Button type="submit" disabled={loading}>
+                {loading ? (
 
-                <CircularProgress size={20} sx={{
-                }} />
+                  <CircularProgress size={20} sx={{
+                  }} />
 
-              ) : (
-                'Acceder'
-              )}
-            </Button>
-            <Button
-              type="button"
-              onClick={() => navigate('/register')}
-            >
-              Registrate
-            </Button>
-            <GoogleButton type="button" onClick={() => googleLogin()} disabled={googleLoading}>
-              {googleLoading ? (
-                <CircularProgress size={20} color="secondary" />
-              ) : (
-                <>
-                  <GoogleIcon src={googleIcon} alt="Google" />
-                  Iniciar sesión con Google
-                </>
-              )}
-            </GoogleButton>
+                ) : (
+                  'Acceder'
+                )}
+              </Button>
+              <Button
+                type="button"
+                onClick={() => navigate('/register')}
+              >
+                Registrate
+              </Button>
+              <GoogleButton type="button" onClick={() => googleLogin()} disabled={googleLoading}>
+                {googleLoading ? (
+                  <CircularProgress size={20} color="secondary" />
+                ) : (
+                  <>
+                    <GoogleIcon src={googleIcon} alt="Google" />
+                    Iniciar sesión con Google
+                  </>
+                )}
+              </GoogleButton>
 
-            {/* </ButtonBox> */}
-          </Form>
-        </LeftPanel>
+              {/* </ButtonBox> */}
+            </Form>
+          </LeftPanel>
 
-        <RightPanel>
-          <GirlImage src={girlImage} alt="Chica usando celular" />
-        </RightPanel>
-      </PanelWrapper>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={4000}
-        onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
+          <RightPanel>
+            <GirlImage src={girlImage} alt="Chica usando celular" />
+          </RightPanel>
+        </PanelWrapper>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={4000}
           onClose={() => setSnackbarOpen(false)}
-          severity="error"
-          variant="filled"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
-          {serverError}
-        </Alert>
-      </Snackbar>
-
-    </Container>
+          <Alert
+            onClose={() => setSnackbarOpen(false)}
+            severity="error"
+            variant="filled"
+          >
+            {serverError}
+          </Alert>
+        </Snackbar>
+      </Container>
+    </>
   );
 };
 

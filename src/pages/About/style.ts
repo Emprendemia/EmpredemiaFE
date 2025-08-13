@@ -1,84 +1,80 @@
 import styled from 'styled-components';
 import theme from '../../theme';
 
-
-
 export const Container = styled.div`
   width: 100%;
-  min-height: 100dvh;
-  padding-top:60px;
   background-color: ${theme.palette.background.default};
   display: flex;
   justify-content: center;
+  flex: 1;          
+  min-height: 0;
 
   & > .inner {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1200px;
     padding: 40px 24px;
     box-sizing: border-box;
 
-    @media (max-width: 1024px) {
-      padding: 32px 20px;
-    }
-
-    @media (max-width: 768px) {
-      padding: 24px 16px;
-    }
-
-    @media (max-width: 480px) {
-      padding: 20px 12px;
-    }
+    @media (max-width: 1024px) { padding: 32px 20px; }
+    @media (max-width: 768px)  { padding: 24px 16px; }
+    @media (max-width: 480px)  { padding: 20px 12px; }
   }
 `;
 
-
 export const AboutSection = styled.section`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;  
   align-items: center;
-  gap: 40px;
+  column-gap: 48px;
+  row-gap: 24px;
   margin-bottom: 60px;
 
+  @media (max-width: 1024px) {
+    column-gap: 32px;
+  }
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 24px;
+    grid-template-columns: 1fr;        
     text-align: center;
+    margin-bottom: 40px;
   }
 `;
 
 export const AboutText = styled.div`
-  flex: 1;
-
   h2 {
     font-size: 2.5rem;
     color: ${theme.palette.primary.main};
-    margin-bottom: 20px;
+    margin: 0 0 20px;
 
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
+    @media (max-width: 768px) { font-size: 2rem; }
   }
 
   p {
-    margin-bottom: 16px;
+    margin: 0 0 16px;
     line-height: 1.6;
     color: ${theme.palette.text.primary};
     font-size: 1rem;
 
-    @media (max-width: 768px) {
-      font-size: 0.95rem;
-    }
+    @media (max-width: 768px) { font-size: 0.95rem; }
   }
 `;
 
 export const AboutImage = styled.div`
-  flex: 1;
-  
-  
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 1025px) {
+    border-left: 1px solid rgba(0,0,0,0.08);
+    padding-left: 24px;
+  }
 
   img {
-    max-width: 45vh;
+    width: 100%;
+    max-width: 380px;
+    height: auto;
     border-radius: 12px;
+    object-fit: contain;
+
+    @media (max-width: 768px) { max-width: 260px; }
   }
 `;
 
@@ -88,16 +84,13 @@ export const PlatformSection = styled.section`
 
   h3 {
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    margin: 0 0 15px;
 
-    @media (max-width: 768px) {
-      font-size: 1.3rem;
-    }
+    @media (max-width: 768px) { font-size: 1.3rem; }
   }
 
   ul {
-    margin-left: 20px;
-    margin-bottom: 30px;
+    margin: 0 0 30px 20px;
     line-height: 1.6;
 
     li {
@@ -105,9 +98,7 @@ export const PlatformSection = styled.section`
       color: ${theme.palette.text.primary};
       font-size: 1rem;
 
-      @media (max-width: 768px) {
-        font-size: 0.95rem;
-      }
+      @media (max-width: 768px) { font-size: 0.95rem; }
     }
   }
 
@@ -116,9 +107,7 @@ export const PlatformSection = styled.section`
     line-height: 1.6;
     color: ${theme.palette.text.primary};
 
-    @media (max-width: 768px) {
-      font-size: 0.95rem;
-    }
+    @media (max-width: 768px) { font-size: 0.95rem; }
   }
 `;
 
@@ -128,7 +117,7 @@ export const TeamSection = styled.section`
 
   h2 {
     font-size: 2rem;
-    margin-bottom: 40px;
+    margin: 0 0 40px;
     color: ${theme.palette.primary.main};
 
     @media (max-width: 768px) {
@@ -150,39 +139,34 @@ export const TeamCard = styled.div`
   border-radius: 20px;
   padding: 20px;
   width: 280px;
-  height: 400px;
+  min-height: 400px;
   color: ${theme.palette.primary.contrastText};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
+  &:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
 
   @media (max-width: 480px) {
     width: 100%;
-    height: auto;
     padding: 16px;
+    min-height: initial;
   }
 `;
-
 
 export const TeamInfo = styled.div`
   h3 {
     font-size: 1.3rem;
-    margin-bottom: 10px;
+    margin: 10px 0;
     white-space: pre-line;
     color: ${theme.palette.primary.contrastText};
 
-    @media (max-width: 768px) {
-      font-size: 1.1rem;
-    }
+    @media (max-width: 768px) { font-size: 1.1rem; }
   }
 
   p {
@@ -190,9 +174,7 @@ export const TeamInfo = styled.div`
     font-weight: 500;
     color: ${theme.palette.primary.contrastText};
 
-    @media (max-width: 768px) {
-      font-size: 0.9rem;
-    }
+    @media (max-width: 768px) { font-size: 0.9rem; }
   }
 `;
 

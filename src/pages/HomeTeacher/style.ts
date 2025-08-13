@@ -3,15 +3,14 @@ import theme from '../../theme';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
-  padding: 40px 20px;
-  margin-top: 80px;
-  background-color: ${theme.palette.primary.contrastText};
+  background-color: ${theme.palette.background.default};
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
-
+  flex: 1;
+  min-height: 0;
+  padding: 40px 20px;
+  border-radius: 12px;
   @media (max-width: 768px) {
     padding: 24px 12px;
   }
@@ -64,7 +63,7 @@ export const MenuButton = styled.button`
     left: 0;
     width: 100%;
     height: 3px;
-    background-color: #fff;
+    background-color: ${theme.palette.primary.contrastText};
     border-radius: 2px;
   }
 
@@ -85,7 +84,7 @@ export const DropdownMenu = styled.div`
   position: absolute;
   top: 32px;
   right: 0;
-  background: white;
+  background: ${theme.palette.background.paper};
   color: ${theme.palette.primary.main};
   border-radius: 8px;
   padding: 10px;
@@ -100,6 +99,7 @@ export const DropdownMenu = styled.div`
     cursor: pointer;
     text-align: left;
     font-weight: bold;
+    color: ${theme.palette.primary.main};
   }
 `;
 
@@ -123,6 +123,7 @@ export const LeftContent = styled.div`
   h3 {
     font-size: 1.1rem;
     margin: 0;
+    color: ${theme.palette.primary.main};
   }
 
   p {
@@ -133,6 +134,7 @@ export const LeftContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: ${theme.palette.text.primary};
 
     @media (max-width: 768px) {
       height: auto;
@@ -152,8 +154,8 @@ export const StatusPill = styled.div<{ state: string }>`
     state === 'published'
       ? '#4CAF50'
       : state === 'in_review'
-      ? '#FFC107'
-      : '#F44336'};
+        ? '#FFC107'
+        : '#F44336'};
 `;
 
 export const RightContent = styled.div`
@@ -174,7 +176,7 @@ export const Hours = styled.div`
   align-items: center;
   gap: 6px;
   font-size: 0.9rem;
-  color: #fff;
+  color: ${theme.palette.primary.contrastText};
   margin-bottom: 8px;
 
   @media (max-width: 768px) {
@@ -187,7 +189,7 @@ export const ClockIcon = styled.span`
 `;
 
 export const ViewButton = styled.button`
-  background: #fff;
+  background: ${theme.palette.background.paper};
   color: ${theme.palette.primary.main};
   border: none;
   padding: 6px 14px;
@@ -197,14 +199,14 @@ export const ViewButton = styled.button`
   transition: background 0.2s ease;
 
   &:hover {
-    background: #f0f0f0;
+    background: ${theme.palette.background.default};
   }
 `;
 
 export const CreateButton = styled.button`
   margin-top: 40px;
   background-color: ${theme.palette.primary.main};
-  color: #fff;
+  color: ${theme.palette.primary.contrastText};
   padding: 14px 28px;
   border: none;
   border-radius: 10px;

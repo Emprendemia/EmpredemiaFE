@@ -4,32 +4,25 @@ import theme from '../../theme';
 
 export const Container = styled.div`
   background-color: ${theme.palette.background.default};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
 `;
 
-/* export const Container = styled.div`
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  background-color: ${theme.palette.primary.contrastText};
-
-  @media (max-width: 768px) {
-    padding: 24px 16px;
-  }
-`; */
-
 export const Banner = styled.header`
+  width: 100%;
   background-image: url(${contactBanner});
-  height: 600px;
   background-size: cover;
   background-position: center;
   background-blend-mode: darken;
   background-color: rgba(0, 0, 0, 0.7);
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-attachment: scroll;
-  
-  
+
   @media (max-width: 768px) {
     height: 300px;
     padding: 0 16px;
@@ -42,7 +35,6 @@ export const BannerTitle = styled.h1`
   font-size: 5rem;
   font-weight: bold;
   margin: 0;
-  
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -50,63 +42,67 @@ export const BannerTitle = styled.h1`
 `;
 
 export const MainContent = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 16px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 42px;
+  align-items: start;
+  gap:150px;
+  
+
+  @media (max-width: 1024px) {
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; 
+    padding: 24px 16px;
+  }
 `;
 
-export const IntroSection = styled.div`
-  width: 50%;
-  margin: 40px;
+export const IntroSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center
 
-  @media (max-width: 768px) {
-    width: 100%;
-    margin: 24px 0;
-  }
+  margin: 0;
 `;
 
 export const IntroText = styled.p`
   color: ${theme.palette.text.primary};
   font-size: 20px;
   text-align: center;
-
+  padding-top:50px;
+  display:flex;
   @media (max-width: 768px) {
     font-size: 1rem;
   }
 `;
 
-export const FormRecuadro = styled.div`
+export const FormRecuadro = styled.section`
   background-color: ${theme.palette.primary.main};
-  width: 50%;
+  border-radius: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  margin-bottom: 30px;
-  padding: 24px;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
+  
 `;
 
 export const FormTitle = styled.h2`
   color: ${theme.palette.primary.contrastText};
-  padding: 10px;
   text-align: center;
+  margin: 0 0 8px 0;
 `;
 
 export const ContactForm = styled.form`
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  margin: 10px;
+  gap: 16px;
   box-sizing: border-box;
 `;
 
@@ -117,33 +113,43 @@ export const InputGroup = styled.div`
 
 export const InputField = styled.input`
   width: 100%;
-  height: 40px;
+  height: 44px;
   border-radius: 10px;
-  border: none;
-  padding: 0 10px;
-  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 0 12px;
   font-size: 1rem;
-  font-family: inherit;
+  background: ${theme.palette.background.paper};
+  color: ${theme.palette.text.primary};
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.palette.primary.dark};
+  }
 `;
 
 export const TextAreaField = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 120px;
   border-radius: 10px;
-  border: none;
-  padding: 10px;
-  resize: none;
-  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 12px;
+  resize: vertical;
   font-size: 1rem;
-  font-family: inherit;
+  background: ${theme.palette.background.paper};
+  color: ${theme.palette.text.primary};
+
+  &:focus {
+    outline: none;
+    border-color: ${theme.palette.primary.dark};
+  }
 `;
 
 export const SubmitButton = styled.button`
   background-color: ${theme.palette.secondary.main};
   color: ${theme.palette.primary.main};
   width: 100%;
-  height: 40px;
-  padding: 0 10px;
+  height: 44px;
+  padding: 0 12px;
   font-weight: bold;
   border-radius: 10px;
   border: none;
@@ -151,8 +157,6 @@ export const SubmitButton = styled.button`
   font-size: 0.95rem;
   text-align: center;
   transition: background-color 0.3s;
-  box-sizing: border-box;
-  font-family: inherit;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};

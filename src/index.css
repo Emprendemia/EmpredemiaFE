@@ -22,17 +22,15 @@ a {
   color: #002b3f;
   text-decoration: none;
 }
-
 a:hover {
   color: #001d33;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  padding-top: 80px;
+  padding: 0;                 
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;         
   overflow-x: hidden;
   background-color: #002b3f;
   color: #000;
@@ -59,10 +57,6 @@ button {
   }
 }
 
-.MuiCircularProgress-colorPrimary {
-    color: #0D4863 !important;
-}
-.MuiCircularProgress-colorSecondary {
-    color: #fcfefc !important;
-}
 
+.MuiCircularProgress-colorPrimary { color: #0D4863 !important; }
+.MuiCircularProgress-colorSecondary { color: #fcfefc !important; }

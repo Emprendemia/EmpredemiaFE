@@ -1,34 +1,35 @@
 import styled from 'styled-components';
 import theme from '../../theme';
 
+/* Usamos la misma altura que el NavbarDummy */
+export const NAVBAR_HEIGHT = 80;
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #0D4863;
+  background-color: ${theme.palette.primary.main};
+  width: 100%;
+  flex: 1;
+  min-height: 0;
 
   @media (max-width: 768px) {
     align-items: flex-start;
-    height: 100dvh;
-    padding: 0;
   }
 `;
 
+/* Ocupa el alto visible restante después del navbar */
 export const PanelWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 100em;
-  height: 100%;
-  
-  /* border-radius: 12px; */
+  min-height: calc(100dvh - ${NAVBAR_HEIGHT}px); /* 👈 evita quedar tapado */
   overflow: hidden;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    height: auto;
-    min-height: 100dvh;
+    overflow: visible;
+    min-height: calc(100dvh - ${NAVBAR_HEIGHT}px);
   }
 `;
 
@@ -68,7 +69,7 @@ export const BoyImage = styled.img`
   max-width: 420px;
   position: absolute;
   bottom: 40%;
-  right: -50%;
+  right: -40%;
   object-fit: contain;
   z-index: 2;
 
@@ -98,7 +99,6 @@ export const Form = styled.form`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
     max-width: 100%;
   }
 `;
@@ -133,21 +133,10 @@ export const Input = styled.input`
   }
 `;
 
-/* export const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-
-
-`; */
-
 export const Button = styled.button`
   display: flex;
   justify-content: center;
   margin-top: 12px;
- /*  width: 58%; */
   padding: 10px;
   border-radius: 10px;
   background-color: ${theme.palette.secondary.main};
@@ -164,13 +153,8 @@ export const Button = styled.button`
 
 export const GoogleButton = styled(Button)`
   background-color: ${theme.palette.primary.main};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  border-radius: 10px;
-  gap: 8px;
   color: ${theme.palette.primary.contrastText};
+  gap: 8px;
 
   &:hover {
     background-color: ${theme.palette.secondary.contrastText};
@@ -187,9 +171,7 @@ export const Links = styled.div`
   text-align: center;
   font-size: 13px;
 
-  p {
-    margin: 4px 0;
-  }
+  p { margin: 4px 0; }
 
   a {
     text-decoration: underline;

@@ -1,49 +1,61 @@
 import { useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Container,
-  VideoWrapper,
+  Header,
   Title,
   Description,
+  VideoCard,
+  VideoWrapper,
+  Iframe,
+  ActionsRow,
+  PrimaryButton,
+  GhostButton,
+  SectionTitle,
   ModuleList,
   ModuleItem,
   ModuleButton,
   RestartButton,
-  Iframe
 } from './style';
 
 interface Module {
   title: string;
-  time: string;
+  time: string; // HH:MM:SS
 }
 
 interface Course {
   _id: string;
   title: string;
   description: string;
-  videoUrl: string;
+  videoUrl: string; // admite youtu.be o v=ID
   modules: Module[];
 }
 
 interface RecentCourse {
   course: string;
   progress: number;
-  lastTimestamp: string;
+  lastTimestamp: string; // HH:MM:SS
 }
+
+const YT_ID_REGEX = /(?:youtu\.be\/|v=)([\w-]{11})/;
 
 const CourseDetail = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
-  const timeParam = searchParams.get('t');
 
   const [course, setCourse] = useState<Course | null>(null);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');         // embed URL actual
   const [currentSeconds, setCurrentSeconds] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);  // evita autoplay inicial y tracking
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const timeParam = searchParams.get('t');
+
+  const token = useMemo(() => localStorage.getItem('token'), []);
 
   const timeToSeconds = (time: string): number => {
     const [h, m, s] = time.split(':').map(Number);
-    return h * 3600 + m * 60 + s;
+    return (h || 0) * 3600 + (m || 0) * 60 + (s || 0);
   };
 
   const secondsToTimestamp = (secs: number): string => {
@@ -53,115 +65,163 @@ const CourseDetail = () => {
     return `${h}:${m}:${s}`;
   };
 
+  const buildEmbedUrl = (rawUrl: string, startSeconds: number, autoplay: boolean) => {
+    const match = rawUrl.match(YT_ID_REGEX);
+    const videoId = match?.[1] ?? '';
+    const params = new URLSearchParams({
+      start: String(startSeconds || 0),
+      enablejsapi: '1',
+      origin: window.location.origin,
+      rel: '0',
+      modestbranding: '1',
+      playsinline: '1',
+    });
+    if (autoplay) params.set('autoplay', '1');
+    return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+  };
+
   const updateRecentCourse = async (progress: number, timestamp: string) => {
     try {
-      const token = localStorage.getItem('token');
+      if (!token) return;
       await fetch(`${import.meta.env.VITE_API_URL}/users/recent-course`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           courseId: id,
           progress,
-          lastTimestamp: timestamp
-        })
+          lastTimestamp: timestamp,
+        }),
       });
     } catch (err) {
       console.error('❌ Error al guardar progreso:', err);
     }
   };
 
-  const jumpToTime = (time: string) => {
+  const jumpToTime = (time: string, opts?: { autoplay?: boolean; register?: boolean }) => {
     const seconds = timeToSeconds(time);
     setCurrentSeconds(seconds);
-    const videoIdMatch = course?.videoUrl.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
-    const videoId = videoIdMatch?.[1] ?? '';
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1&key=${Date.now()}&enablejsapi=1&origin=${window.location.origin}`;
-    setVideoUrl(embedUrl);
-    updateRecentCourse(0, time);
+    const url = buildEmbedUrl(course?.videoUrl || '', seconds, !!opts?.autoplay);
+    setVideoUrl(url);
+
+    if (opts?.register) {
+      // registra “actividad” al saltar/iniciar
+      updateRecentCourse(0, time);
+    }
   };
 
   const restartCourse = () => {
-    jumpToTime('00:00:00');
+    setHasStarted(true);
+    jumpToTime('00:00:00', { autoplay: true, register: true });
+  };
+
+  const startCourse = () => {
+    setHasStarted(true);
+    // si venías con un t param o último timestamp, arrancamos desde ahí
+    const startTs = secondsToTimestamp(currentSeconds);
+    jumpToTime(startTs, { autoplay: true, register: true });
   };
 
   const fetchCourse = async () => {
     try {
-      const token = localStorage.getItem('token');
-
       const courseRes = await fetch(`${import.meta.env.VITE_API_URL}/courses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
-
-      const courseData = await courseRes.json();
+      const courseData: Course = await courseRes.json();
       setCourse(courseData);
 
-      const recentRes = await fetch(`${import.meta.env.VITE_API_URL}/users/recent-courses`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      // obtener último timestamp del usuario
+      let lastTime = '00:00:00';
+      if (token) {
+        const recentRes = await fetch(`${import.meta.env.VITE_API_URL}/users/recent-courses`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const recentCourses: RecentCourse[] = await recentRes.json();
+        const currentCourse = recentCourses.find((c) => c.course === id);
+        lastTime = currentCourse?.lastTimestamp ?? lastTime;
+      }
+      // override por query param ?t=HH:MM:SS
+      if (timeParam) lastTime = timeParam;
 
-      const recentCourses: RecentCourse[] = await recentRes.json();
-      const currentCourse = recentCourses.find(c => c.course === id);
-      const lastTime = timeParam || currentCourse?.lastTimestamp || '00:00:00';
-      const seconds = timeToSeconds(lastTime);
-      setCurrentSeconds(seconds);
+      const secs = timeToSeconds(lastTime);
+      setCurrentSeconds(secs);
 
-      const videoIdMatch = courseData.videoUrl.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
-      const videoId = videoIdMatch?.[1] ?? '';
-      const embedUrl = `https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
-      setVideoUrl(embedUrl);
+      // ⚠️ inicial: embebemos SIN autoplay
+      const pausedUrl = buildEmbedUrl(courseData.videoUrl, secs, false);
+      setVideoUrl(pausedUrl);
+      setHasStarted(false);
     } catch (err) {
       console.error('❌ Error al cargar curso:', err);
     }
   };
 
+  // carga del curso
   useEffect(() => {
     fetchCourse();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  // tracking cada 5s SOLO cuando el curso está "started"
   useEffect(() => {
+    if (!hasStarted || !course) return;
     const interval = setInterval(() => {
-      setCurrentSeconds(prev => {
+      setCurrentSeconds((prev) => {
         const next = prev + 5;
-        const timestamp = secondsToTimestamp(next);
-        const progress = course ? Math.floor((next / (60 * course.modules.length)) * 100) : 0;
-        updateRecentCourse(progress, timestamp);
+        const ts = secondsToTimestamp(next);
+        // tu lógica de progreso (mantengo criterio original basado en módulos)
+        const progress = Math.max(
+          0,
+          Math.min(100, Math.floor((next / (60 * (course.modules?.length || 1))) * 100))
+        );
+        updateRecentCourse(progress, ts);
         return next;
       });
     }, 5000);
-
     return () => clearInterval(interval);
-  }, [course]);
+  }, [hasStarted, course]); // eslint-disable-line
 
-  if (!course) return <p>Cargando...</p>;
+  if (!course) return <Container>Cargando...</Container>;
 
   return (
     <Container>
-      <Title>{course.title}</Title>
-      <Description>{course.description}</Description>
+      <Header>
+        <Title>{course.title}</Title>
+        <Description>{course.description}</Description>
+      </Header>
 
-      <VideoWrapper>
-        {videoUrl && (
-          <Iframe
-            ref={iframeRef}
-            src={videoUrl}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        )}
-      </VideoWrapper>
+      <VideoCard>
+        <VideoWrapper>
+          {videoUrl && (
+            <Iframe
+              ref={iframeRef}
+              src={videoUrl}
+              title={course.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          )}
+        </VideoWrapper>
 
-      <RestartButton onClick={restartCourse}>
-        Reiniciar curso desde el inicio
-      </RestartButton>
+        <ActionsRow>
+          {!hasStarted ? (
+            <PrimaryButton onClick={startCourse}>Iniciar curso</PrimaryButton>
+          ) : (
+            <GhostButton onClick={() => jumpToTime(secondsToTimestamp(currentSeconds), { autoplay: true, register: true })}>
+              Reanudar
+            </GhostButton>
+          )}
+          <RestartButton onClick={restartCourse}>Reiniciar desde el inicio</RestartButton>
+        </ActionsRow>
+      </VideoCard>
 
+      <SectionTitle>Módulos</SectionTitle>
       <ModuleList>
         {course.modules.map((mod, i) => (
-          <ModuleItem key={i}>
+          <ModuleItem key={`${mod.title}-${i}`}>
             <strong>{mod.title}</strong>
-            <ModuleButton onClick={() => jumpToTime(mod.time)}>
+            <ModuleButton onClick={() => { setHasStarted(true); jumpToTime(mod.time, { autoplay: true, register: true }); }}>
               Ir a {mod.time}
             </ModuleButton>
           </ModuleItem>

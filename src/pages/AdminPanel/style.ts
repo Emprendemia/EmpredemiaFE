@@ -2,17 +2,16 @@ import styled from 'styled-components';
 import theme from '../../theme';
 
 export const Container = styled.div`
-  max-width: 1100px;
-  margin: 60px auto;
-  padding: 40px;
+  width: 100%;
+  margin: 24px auto;
+  padding: 32px 20px;
   background-color: ${theme.palette.background.paper};
-  border-radius: 10px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   text-align: center;
-
   @media (max-width: 768px) {
     padding: 24px 16px;
-    margin: 30px 12px;
+    /* margin: 16px 12px; */
   }
 `;
 
@@ -39,14 +38,14 @@ export const Table = styled.table`
 
 export const Tr = styled.tr`
   &:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: ${theme.palette.background.default}; 
   }
 `;
 
 export const Th = styled.th`
   padding: 12px;
   background-color: ${theme.palette.primary.main};
-  color: white;
+  color: ${theme.palette.primary.contrastText};
   text-align: left;
 
   @media (max-width: 768px) {
@@ -57,8 +56,9 @@ export const Th = styled.th`
 
 export const Td = styled.td`
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
   text-align: left;
+  color: ${theme.palette.text.primary};
 
   @media (max-width: 768px) {
     font-size: 0.9rem;
@@ -67,15 +67,17 @@ export const Td = styled.td`
 `;
 
 export const Select = styled.select`
-  padding: 6px 36px 6px 12px;;
+  padding: 6px 36px 6px 12px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: ${theme.palette.background.paper};
+  color: ${theme.palette.text.primary};
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  
 
   @media (max-width: 768px) {
     width: 100%;
+    min-width: 150px
   }
 `;
 
@@ -88,7 +90,6 @@ export const Button = styled.button`
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  text-align: center;
 
   &:hover {
     background-color: ${theme.palette.secondary.dark};
@@ -111,7 +112,7 @@ export const Pill = styled.span<{ state: string }>`
   border-radius: 10px;
   font-weight: bold;
   font-size: 0.85rem;
-  color: white;
+  color: ${theme.palette.primary.contrastText};
   background-color: ${({ state }) =>
     state === 'published' ? '#4CAF50' :
     state === 'in_review' ? '#FFC107' :

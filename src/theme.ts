@@ -35,7 +35,20 @@ const theme = createTheme({
           textTransform: 'none'
         }
       }
-    }
+    },
+    MuiContainer: {
+      defaultProps: {
+        disableGutters: true, // quita gutters por defecto
+      },
+      styleOverrides: {
+        root: {
+          paddingLeft: '0 !important', //sacal os padding de los container de mui
+          paddingRight: '0 !important',
+          paddingTop: '0 !important',
+          paddingBottom: '0 !important',
+        },
+      },
+    },
   }
 });
 

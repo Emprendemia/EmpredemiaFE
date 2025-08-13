@@ -7,18 +7,16 @@ export const Container = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  height: 100%;               
+  position: static;
+  z-index: 2;
   background-color: ${theme.palette.primary.dark};
   color: ${theme.palette.primary.contrastText};
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 `;
 
 export const InnerWrapper = styled.div`
-  max-width: 1400px;
+  max-width: 1400px;          
   width: 100%;
   padding: 16px 24px;
   margin: 0 auto;
@@ -38,10 +36,7 @@ export const Logo = styled(Link)`
   gap: 12px;
   text-decoration: none;
 
-  img {
-    width: 32px;
-    height: 32px;
-  }
+  img { width: 32px; height: 32px; }
 
   span {
     font-size: 1.4rem;
@@ -60,13 +55,11 @@ export const HamburgerButton = styled.button`
 
   @media (max-width: 768px) {
     display: block;
-    z-index: 1001;
+    z-index: 3;
   }
 `;
 
-interface NavItemsProps {
-  $open: boolean;
-}
+interface NavItemsProps { $open: boolean; }
 
 export const NavItems = styled.div<NavItemsProps>`
   display: flex;
@@ -76,14 +69,14 @@ export const NavItems = styled.div<NavItemsProps>`
   @media (max-width: 768px) {
     flex-direction: column;
     position: absolute;
-    top: 64px;
+    top: 80px; 
     right: 0;
     background-color: ${theme.palette.primary.dark};
     width: 100%;
     padding: 20px 0;
     display: ${({ $open }) => ($open ? 'flex' : 'none')};
     gap: 16px;
-    z-index: 999;
+    z-index: 2;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 `;
@@ -94,9 +87,7 @@ export const NavLink = styled(Link)`
   font-weight: 500;
   font-size: 1rem;
 
-  &:hover {
-    color: ${theme.palette.secondary.main};
-  }
+  &:hover { color: ${theme.palette.secondary.main}; }
 `;
 
 export const NavButton = styled.button`
@@ -107,7 +98,5 @@ export const NavButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
 
-  &:hover {
-    color: ${theme.palette.secondary.main};
-  }
+  &:hover { color: ${theme.palette.secondary.main}; }
 `;

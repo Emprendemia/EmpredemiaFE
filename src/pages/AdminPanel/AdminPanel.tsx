@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Container,
   Title,
@@ -30,13 +30,12 @@ interface Course {
 
 const AdminPanel = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [filteredRole, setFilteredRole] = useState('all');
+  const [filteredRole, setFilteredRole] = useState<'all' | 'user' | 'teacher'>('all');
   const [expandedUserId, setExpandedUserId] = useState<string | null>(null);
   const [coursesMap, setCoursesMap] = useState<Record<string, Course[]>>({});
-  /* const [loadingCourses, setLoadingCourses] = useState(false); <--- en caso de implementar una muestra de carga*/
-  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
-  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({ open: false, message: '', severity: 'success' });
 
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -44,13 +43,16 @@ const AdminPanel = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
-      .then(data => setUsers(data))
+      .then(data => setUsers(Array.isArray(data) ? data : []))
       .catch(() => {
         setSnackbar({ open: true, message: 'Error al cargar usuarios', severity: 'error' });
       });
-  }, []);
+  }, [token]);
 
-  const filteredUsers = filteredRole === 'all' ? users : users.filter(u => u.role === filteredRole);
+  const filteredUsers = useMemo(
+    () => (filteredRole === 'all' ? users : users.filter(u => u.role === filteredRole)),
+    [users, filteredRole]
+  );
 
   const handleRoleChange = async (userId: string, newRole: 'user' | 'teacher') => {
     try {
@@ -77,17 +79,14 @@ const AdminPanel = () => {
     setExpandedUserId(alreadyExpanded ? null : user._id);
 
     if (!alreadyExpanded && user.role === 'teacher' && !coursesMap[user._id]) {
-      /* setLoadingCourses(true) */;
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/courses/teacher/${user._id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
-        setCoursesMap(prev => ({ ...prev, [user._id]: data }));
+        setCoursesMap(prev => ({ ...prev, [user._id]: Array.isArray(data) ? data : [] }));
       } catch {
         setSnackbar({ open: true, message: 'Error al cargar cursos', severity: 'error' });
-      } finally {
-        /* setLoadingCourses(false) */;
       }
     }
   };
@@ -122,7 +121,7 @@ const AdminPanel = () => {
     <Container>
       <Title>Panel de Administración</Title>
 
-      <Select onChange={(e) => setFilteredRole(e.target.value)}>
+      <Select aria-label="Filtrar por rol" value={filteredRole} onChange={(e) => setFilteredRole(e.target.value as any)}>
         <option value="all">Todos</option>
         <option value="user">Usuarios</option>
         <option value="teacher">Profesores</option>
@@ -139,12 +138,13 @@ const AdminPanel = () => {
         </thead>
         <tbody>
           {filteredUsers.map((user) => (
-            <>
-              <Tr key={user._id}>
-                <Td>{user.fullname}</Td>
-                <Td>{user.email}</Td>
-                <Td>
+            <FragmentUser key={user._id}>
+              <Tr>
+                <Td data-label="Nombre">{user.fullname}</Td>
+                <Td data-label="Email">{user.email}</Td>
+                <Td data-label="Rol">
                   <Select
+                    aria-label={`Rol de ${user.fullname}`}
                     value={user.role}
                     onChange={(e) => handleRoleChange(user._id, e.target.value as 'user' | 'teacher')}
                   >
@@ -152,7 +152,7 @@ const AdminPanel = () => {
                     <option value="teacher">Profesor</option>
                   </Select>
                 </Td>
-                <Td>
+                <Td data-label="Acciones">
                   {user.role === 'teacher' && (
                     <ExpandButton onClick={() => toggleExpand(user)}>
                       {expandedUserId === user._id ? 'Ocultar cursos' : 'Ver cursos'}
@@ -176,19 +176,33 @@ const AdminPanel = () => {
                       <tbody>
                         {coursesMap[user._id].map((course) => (
                           <Tr key={course._id}>
-                            <Td style={{ cursor: 'pointer', color: '#0D4863' }}
-                              onClick={() => navigate(`/course/${course._id}`)}>
+                            <Td
+                              data-label="Título"
+                              style={{ cursor: 'pointer', color: '#0D4863' }}
+                              onClick={() => navigate(`/course/${course._id}`)}
+                            >
                               {course.title}
                             </Td>
-                            <Td>{course.hours}</Td>
-                            <Td>
-                              <Pill state={course.state}>{course.state === 'published' ? 'Publicado' : course.state === 'in_review' ? 'En Revisión' : 'De Baja'}</Pill>
+                            <Td data-label="Horas">{course.hours}</Td>
+                            <Td data-label="Estado">
+                              <Pill state={course.state}>
+                                {course.state === 'published'
+                                  ? 'Publicado'
+                                  : course.state === 'in_review'
+                                  ? 'En Revisión'
+                                  : 'De Baja'}
+                              </Pill>
                             </Td>
-                            <Td>
+                            <Td data-label="Acción">
                               <Select
+                                aria-label={`Cambiar estado de ${course.title}`}
                                 value={course.state}
                                 onChange={(e) =>
-                                  handleCourseStateChange(course._id, e.target.value as 'in_review' | 'published' | 'inactive', user._id)
+                                  handleCourseStateChange(
+                                    course._id,
+                                    e.target.value as 'in_review' | 'published' | 'inactive',
+                                    user._id
+                                  )
                                 }
                               >
                                 <option value="in_review">En Revisión</option>
@@ -203,7 +217,7 @@ const AdminPanel = () => {
                   </Td>
                 </Tr>
               )}
-            </>
+            </FragmentUser>
           ))}
         </tbody>
       </Table>
@@ -214,12 +228,15 @@ const AdminPanel = () => {
         onClose={() => setSnackbar({ ...snackbar, open: false })}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <MuiAlert elevation={6} variant="filled" severity={snackbar.severity as any}>
+        <MuiAlert elevation={6} variant="filled" severity={snackbar.severity}>
           {snackbar.message}
         </MuiAlert>
       </Snackbar>
     </Container>
   );
 };
+
+
+const FragmentUser = ({ children }: { children: React.ReactNode }) => <>{children}</>;
 
 export default AdminPanel;

@@ -4,18 +4,19 @@ import theme from '../../theme';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
   background-color: ${theme.palette.background.default};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 120px 20px 40px;
+  border-radius: 12px;
+  flex: 1;
+  min-height: 0;
+  padding: 24px 20px;
 
   @media (max-width: 768px) {
-    padding: 120px 20px 20px;
+    padding: 20px 16px;
   }
 `;
-
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -27,10 +28,13 @@ export const ContentWrapper = styled.div`
   gap: 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  background: ${theme.palette.background.paper};
 
   @media (max-width: 1024px) {
     flex-direction: column-reverse;
     text-align: center;
+    padding: 24px;
+    gap: 24px;
   }
 `;
 
@@ -39,14 +43,12 @@ export const Greeting = styled.h2`
   color: ${theme.palette.primary.main};
   margin-bottom: 24px;
   text-align: center;
-  
 
   @media (max-width: 768px) {
     font-size: 1.3rem;
     padding: 0 12px;
   }
 `;
-
 
 export const Title = styled.h1`
   font-size: 3rem;
@@ -87,7 +89,6 @@ export const HeroImage = styled.img`
   }
 `;
 
-
 export const LastCourseWrapper = styled.div`
   margin-top: 40px;
   width: 100%;
@@ -125,8 +126,6 @@ export const ProgressBarFill = styled.div`
   transition: width 0.3s ease;
 `;
 
-
-
 export const ContinueButton = styled(Link)`
   background-color: ${theme.palette.secondary.main};
   color: ${theme.palette.primary.main};
@@ -141,6 +140,7 @@ export const ContinueButton = styled(Link)`
 
   &:hover {
     background-color: ${theme.palette.secondary.main};
+    opacity: 0.95;
   }
 `;
 
@@ -158,5 +158,3 @@ export const RecentCoursesGrid = styled.div`
     gap: 16px;
   }
 `;
-
-

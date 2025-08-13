@@ -62,7 +62,7 @@ const Navbar = () => {
         </HamburgerButton>
 
         <NavItems $open={menuOpen}>
-          <NavLink to="/home" onClick={handleNavigate}>Home</NavLink>
+          <NavLink to="/home" onClick={handleNavigate}>Inicio</NavLink>
           {(role === 'teacher' || role === 'admin') && (
             <NavLink to="/teacher" onClick={handleNavigate}>Profesor</NavLink>
           )}
