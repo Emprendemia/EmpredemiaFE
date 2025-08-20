@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/Logo-claro.png';
 import {
   Container,
   InnerWrapper,
@@ -8,8 +10,8 @@ import {
   NavButton,
   HamburgerButton
 } from './style';
-import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/Logo-claro.png';
+import { FiLogOut } from 'react-icons/fi';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ const Navbar = () => {
   }, []);
 
   //cerrar el menu cuando se clickea un Navlink 
-    const handleNavigate = () => {
+  const handleNavigate = () => {
     if (window.innerWidth <= 768) {
       setMenuOpen(false);
     }
@@ -63,17 +65,20 @@ const Navbar = () => {
 
         <NavItems $open={menuOpen}>
           <NavLink to="/home" onClick={handleNavigate}>Inicio</NavLink>
-          {(role === 'teacher' || role === 'admin') && (
+          {(role === 'teacher' || role === 'admin' || role === 'owner') && (
             <NavLink to="/teacher" onClick={handleNavigate}>Profesor</NavLink>
           )}
-          {role === 'admin' && (
+          { (role === 'admin' || role === 'owner') && (
             <NavLink to="/administrar" onClick={handleNavigate}>Administrar</NavLink>
           )}
           <NavLink to="/course" onClick={handleNavigate}>Cursos</NavLink>
           <NavLink to="/profile" onClick={handleNavigate}>Perfil</NavLink>
           <NavLink to="/contact" onClick={handleNavigate}>Contacto</NavLink>
           <NavLink to="/about" onClick={handleNavigate}>Sobre Nosotros</NavLink>
-          <NavButton onClick={handleLogout}>Salir</NavButton>
+          <NavButton onClick={handleLogout}>
+            <FiLogOut size={18} />
+            Salir
+          </NavButton>
         </NavItems>
       </InnerWrapper>
     </Container>

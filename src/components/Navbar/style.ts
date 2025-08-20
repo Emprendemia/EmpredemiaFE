@@ -7,8 +7,8 @@ export const Container = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;               
-  position: static;
+  height: 80px;               
+  position: fixed;
   z-index: 2;
   background-color: ${theme.palette.primary.dark};
   color: ${theme.palette.primary.contrastText};
@@ -91,12 +91,19 @@ export const NavLink = styled(Link)`
 `;
 
 export const NavButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: ${theme.palette.primary.contrastText};
   background: none;
   border: none;
   font-weight: 500;
   font-size: 1rem;
   cursor: pointer;
+  text-decoration: none;
 
-  &:hover { color: ${theme.palette.secondary.main}; }
+  &:hover {
+    color: ${theme.palette.secondary.main};
+  }
 `;
+
